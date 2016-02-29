@@ -1,3 +1,15 @@
 TODO
 - JSHint configuration
-- Code formatting configuration
+- Repository structure
+    index.html
+    src
+        js
+            chordsWiki.js
+        css
+            chordsWiki.css
+        data
+            chordsData.json
+    lib
+        jquery_min.js
+
+- Json file sample
