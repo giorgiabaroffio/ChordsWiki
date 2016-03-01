@@ -11,7 +11,7 @@ if (typeof(chordsWiki) === 'undefined') {
 (function() {
 	'use strict';
 
-	chordsWiki.Main = function() {
+	chordsWiki.Main = function(params) {
 
 		var CONST = {
 			CSS: {
@@ -25,6 +25,12 @@ if (typeof(chordsWiki) === 'undefined') {
 			DATA_URL: 'src/data/chordsData.json'
 		};
 
+		var config = {
+			chordsWikiContainer: 'body'
+		};
+
+		$.extend(config, params);
+
 		var self = this;
 
 		this.container = $('<div>');
@@ -35,7 +41,7 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var init = function() {
 			render();
-			$('body').append(self.container);
+			$(config.chordsWikiContainer).append(self.container);
 			loadData();
 		};
 

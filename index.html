@@ -7,10 +7,11 @@
 	<script src="src/js/chordsWiki.js"></script>
 	<script>
 		$(document).ready(function() {
-			var wiki = new chordsWiki.Main();
+			var wiki = new chordsWiki.Main({chordsWikiContainer:'.wikiContainer'});
 		});
 	</script>
 </head>
 <body>
+	<div class="wikiContainer"></div>
 </body>
 </html>
