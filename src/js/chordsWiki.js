@@ -11,6 +11,17 @@ if (typeof(chordsWiki) === 'undefined') {
 
 	chordsWiki.Main = function() {
 
+		var CONST = {
+			CSS: {
+				EAST_AREA: 'east_area',
+				WEST_AREA: 'west_area'
+			},
+			STRING: {
+				SUBTITLE_EAST: 'Chord selection',
+				SUBTITLE_WEST: 'Chord details'
+			}
+		};
+
 		var self = this;
 
 		this.container = $('<div>');
@@ -28,18 +39,18 @@ if (typeof(chordsWiki) === 'undefined') {
 
 			//East area creation
 			var eastContainer = $('<div>');
-			eastContainer.addClass('east_area');
+			eastContainer.addClass(CONST.CSS.EAST_AREA);
 			var subtitleEast = $('<h2>');
-			subtitleEast.text('Chord selection');
+			subtitleEast.text(CONST.STRING.SUBTITLE_EAST);
 			eastContainer.append(subtitleEast);
 			eastContainer.append(chordSelect);
 			eastContainer.append(categorySelect);
 
 			//West area creation
 			var westContainer = $('<div>');
-			westContainer.addClass('west_area');
+			westContainer.addClass(CONST.CSS.WEST_AREA);
 			var subtitleWest = $('<h2>');
-			subtitleWest.text('Chord details');
+			subtitleWest.text(CONST.STRING.SUBTITLE_WEST);
 			westContainer.append(subtitleWest);
 
 			//Main content wrapper creation
