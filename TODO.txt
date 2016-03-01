@@ -2,3 +2,4 @@ TODO
 - JSHint configuration
 - Upgrade jquery 2.x (read documentation and explore differences)
 - Discussion with Emily about javascript inclusion (append to a configurable element and not to the body)
+- params

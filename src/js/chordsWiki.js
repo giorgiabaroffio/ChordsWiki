@@ -10,6 +10,14 @@ if(typeof(chordsWiki) === "undefined"){
 	"use strict";
 
 	chordsWiki.Main = function(){
-		console.log('test');
+
+		var init = function() {
+			console.log('test');
+		};
+		init();
+
 	}
+
+
+
 }());
