@@ -5,3 +5,11 @@ if(typeof(jQuery) === "undefined"){
 if(typeof(chordsWiki) === "undefined"){
 	var chordsWiki = {};
 }
+
+(function(){
+	"use strict";
+
+	chordsWiki.Main = function(){
+		console.log('test');
+	}
+}());
