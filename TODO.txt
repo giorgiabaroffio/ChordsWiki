@@ -1,3 +1,2 @@
 TODO
-- JSHint configuration
 - Discussion with Emily about javascript inclusion (append to a configurable element and not to the body)
