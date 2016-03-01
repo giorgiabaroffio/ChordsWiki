@@ -112,7 +112,7 @@ if (typeof(chordsWiki) === 'undefined') {
 				chordSelect.append(chordOption);
 			}
 
-			for (var j = 0; j < jsonData.chord_types.length; j++) {
+			for (var j = 0; j < jsonData.chord_categories.length; j++) {
 				var chordCategory = jsonData.chord_categories[j];
 				var categoryOption = $('<option>');
 				categoryOption.text(chordCategory.label);
