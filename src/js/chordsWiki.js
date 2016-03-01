@@ -18,9 +18,11 @@ if (typeof(chordsWiki) === 'undefined') {
 				EAST_AREA: 'east_area',
 				WEST_AREA: 'west_area'
 			},
-			STRING: {
+			LABEL: {
 				SUBTITLE_EAST: 'Chord selection',
-				SUBTITLE_WEST: 'Chord details'
+				SUBTITLE_WEST: 'Chord details',
+				PLEASE_SELECT_CHORD: 'Please select a chord',
+				PLEASE_SELECT_CATEGORY: 'Please select a category'
 			},
 			DATA_URL: 'src/data/chordsData.json'
 		};
@@ -35,14 +37,30 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		this.container = $('<div>');
 
-		var chordSelect = $('<select>');
+		var chordSelect = null;
 
-		var categorySelect = $('<select>');
+		var categorySelect = null;
 
 		var init = function() {
+			chordSelect = initializeSelect(chordSelect, CONST.LABEL.PLEASE_SELECT_CHORD);
+			categorySelect = initializeSelect(categorySelect, CONST.LABEL.PLEASE_SELECT_CATEGORY);
 			render();
 			$(config.chordsWikiContainer).append(self.container);
 			loadData();
+		};
+
+		/**
+		 * Initialize select field
+		 */
+		var initializeSelect = function(select, placeholder) {
+
+			select = $('<select>');
+			var option = $('<option>');
+			option.text(placeholder);
+			option.val('');
+			select.append(option);
+			return select;
+
 		};
 
 		/**
@@ -70,7 +88,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			var eastContainer = $('<div>');
 			eastContainer.addClass(CONST.CSS.EAST_AREA);
 			var subtitleEast = $('<h2>');
-			subtitleEast.text(CONST.STRING.SUBTITLE_EAST);
+			subtitleEast.text(CONST.LABEL.SUBTITLE_EAST);
 			eastContainer.append(subtitleEast);
 			eastContainer.append(chordSelect);
 			eastContainer.append(categorySelect);
@@ -86,7 +104,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			var westContainer = $('<div>');
 			westContainer.addClass(CONST.CSS.WEST_AREA);
 			var subtitleWest = $('<h2>');
-			subtitleWest.text(CONST.STRING.SUBTITLE_WEST);
+			subtitleWest.text(CONST.LABEL.SUBTITLE_WEST);
 			westContainer.append(subtitleWest);
 			return westContainer;
 
@@ -116,7 +134,6 @@ if (typeof(chordsWiki) === 'undefined') {
 		 * Populate select field given the data array and the select object
 		 */
 		var populateSelect = function(dataArray, selectObj) {
-			console.log(dataArray);
 			for (var i = 0; i < dataArray.length; i++) {
 				var record = dataArray[i];
 				var option = $('<option>');
