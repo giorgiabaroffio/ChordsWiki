@@ -3,7 +3,9 @@ if (typeof(jQuery) === 'undefined') {
 }
 
 if (typeof(chordsWiki) === 'undefined') {
+	/* jshint ignore:start */
 	var chordsWiki = {};
+	/* jshint ignore:end */
 }
 
 (function() {
@@ -35,9 +37,28 @@ if (typeof(chordsWiki) === 'undefined') {
 			$('body').append(self.container);
 		};
 
+		/**
+		 * Render the UI
+		 */
 		var render = function() {
 
-			//East area creation
+			//Main content wrapper creation
+			var mainContent = $('<main>');
+
+			//Append east and west areas to mainContent
+			mainContent.append(renderEast());
+			mainContent.append(renderWest());
+
+			//Append mainContent to container
+			self.container.append(mainContent);
+
+		};
+
+		/**
+		 * Render the east area of the UI
+		 */
+		var renderEast = function() {
+
 			var eastContainer = $('<div>');
 			eastContainer.addClass(CONST.CSS.EAST_AREA);
 			var subtitleEast = $('<h2>');
@@ -45,21 +66,21 @@ if (typeof(chordsWiki) === 'undefined') {
 			eastContainer.append(subtitleEast);
 			eastContainer.append(chordSelect);
 			eastContainer.append(categorySelect);
+			return eastContainer;
 
-			//West area creation
+		};
+
+		/**
+		 * Render the west area of the UI
+		 */
+		var renderWest = function() {
+
 			var westContainer = $('<div>');
 			westContainer.addClass(CONST.CSS.WEST_AREA);
 			var subtitleWest = $('<h2>');
 			subtitleWest.text(CONST.STRING.SUBTITLE_WEST);
 			westContainer.append(subtitleWest);
-
-			//Main content wrapper creation
-			var mainContent = $('<main>');
-			mainContent.append(eastContainer);
-			mainContent.append(westContainer);
-
-			//Append to container
-			self.container.append(mainContent);
+			return westContainer;
 
 		};
 
