@@ -21,7 +21,8 @@ if (typeof(chordsWiki) === 'undefined') {
 			STRING: {
 				SUBTITLE_EAST: 'Chord selection',
 				SUBTITLE_WEST: 'Chord details'
-			}
+			},
+			DATA_URL: 'src/data/chordsData.json'
 		};
 
 		var self = this;
@@ -35,6 +36,7 @@ if (typeof(chordsWiki) === 'undefined') {
 		var init = function() {
 			render();
 			$('body').append(self.container);
+			loadData();
 		};
 
 		/**
@@ -82,6 +84,41 @@ if (typeof(chordsWiki) === 'undefined') {
 			westContainer.append(subtitleWest);
 			return westContainer;
 
+		};
+
+		var loadData = function() {
+			$.ajax({
+				url: CONST.DATA_URL,
+				type: 'get',
+				cache: true,
+				success: function(data, textStatus, jqXHR){
+					populateSelect(data);
+				},
+				error: function(){
+					//TODO add error handling
+					console.log('error!');
+				}
+			});
+
+		};
+
+		var populateSelect = function(jsonData) {
+			console.log(jsonData);
+			for (var i = 0; i < jsonData.chord_types.length; i++) {
+				var chordType = jsonData.chord_types[i];
+				var chordOption = $('<option>');
+				chordOption.text(chordType.label);
+				chordOption.val(chordType.id);
+				chordSelect.append(chordOption);
+			}
+
+			for (var j = 0; j < jsonData.chord_types.length; j++) {
+				var chordCategory = jsonData.chord_categories[j];
+				var categoryOption = $('<option>');
+				categoryOption.text(chordCategory.label);
+				categoryOption.val(chordCategory.id);
+				categorySelect.append(categoryOption);
+			}
 		};
 
 		init();
