@@ -86,13 +86,17 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		};
 
+		/**
+		 * Load data via ajax get call
+		 */
 		var loadData = function() {
 			$.ajax({
 				url: CONST.DATA_URL,
 				type: 'get',
 				cache: true,
 				success: function(data, textStatus, jqXHR){
-					populateSelect(data);
+					populateSelect(data.chord_types, chordSelect);
+					populateSelect(data.chord_categories, categorySelect);
 				},
 				error: function(){
 					//TODO add error handling
@@ -102,22 +106,17 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		};
 
-		var populateSelect = function(jsonData) {
-			console.log(jsonData);
-			for (var i = 0; i < jsonData.chord_types.length; i++) {
-				var chordType = jsonData.chord_types[i];
-				var chordOption = $('<option>');
-				chordOption.text(chordType.label);
-				chordOption.val(chordType.id);
-				chordSelect.append(chordOption);
-			}
-
-			for (var j = 0; j < jsonData.chord_categories.length; j++) {
-				var chordCategory = jsonData.chord_categories[j];
-				var categoryOption = $('<option>');
-				categoryOption.text(chordCategory.label);
-				categoryOption.val(chordCategory.id);
-				categorySelect.append(categoryOption);
+		/**
+		 * Populate select field given the data array and the select object
+		 */
+		var populateSelect = function(dataArray, selectObj) {
+			console.log(dataArray);
+			for (var i = 0; i < dataArray.length; i++) {
+				var record = dataArray[i];
+				var option = $('<option>');
+				option.text(record.label);
+				option.val(record.id);
+				selectObj.append(option);
 			}
 		};
 
