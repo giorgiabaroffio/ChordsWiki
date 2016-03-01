@@ -38,7 +38,6 @@ if (typeof(chordsWiki) === 'undefined') {
 		this.container = $('<div>');
 
 		var chordSelect = null;
-
 		var categorySelect = null;
 
 		var init = function() {
@@ -47,6 +46,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			render();
 			$(config.chordsWikiContainer).append(self.container);
 			loadData();
+			attachEvents();
 		};
 
 		/**
@@ -141,6 +141,25 @@ if (typeof(chordsWiki) === 'undefined') {
 				option.val(record.id);
 				selectObj.append(option);
 			}
+		};
+
+		var attachEvents = function() {
+
+			chordSelect.change(function(){
+				if(isSelectionValid(chordSelect)){
+					console.log('valid');
+				}
+			});
+
+			categorySelect.change(function(){
+				if(isSelectionValid(categorySelect)){
+					console.log('valid');
+				}
+			});
+		};
+
+		var isSelectionValid = function(select) {
+			return select.val()!=='';
 		};
 
 		init();
