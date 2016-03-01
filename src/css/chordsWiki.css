@@ -1,0 +1,9 @@
+.east_area {
+	float: left;
+	width: 50%;
+}
+
+.west_area{
+	float: right;
+	width: 50%;
+}
