@@ -15,22 +15,22 @@ if (typeof(chordsWiki.chordsData) === 'undefined') {
 			{
 				"chord_id": 0,
 				"type_id": 0,
-				"notes": [0,4,8]
+				"notes": [1,7,13]
 			},
 			{
 				"chord_id": 0,
 				"type_id": 1,
-				"notes": [1,3,8]
+				"notes": [1,6,13]
 			},
 			{
 				"chord_id": 1,
 				"type_id": 0,
-				"notes": [2,6,10]
+				"notes": [4,11,16]
 			},
 			{
 				"chord_id": 1,
 				"type_id": 1,
-				"notes": [2,5,10]
+				"notes": [4,10,16]
 			}
 
 		],
@@ -57,55 +57,87 @@ if (typeof(chordsWiki.chordsData) === 'undefined') {
 		"notes": [
 			{
 				"id": 0,
-				"label": "C"
+				"label": "Cb"
 			},
 			{
 				"id": 1,
-				"label": "C#"
+				"label": "C"
 			},
 			{
 				"id": 2,
-				"label": "D"
+				"label": "C#"
 			},
 			{
 				"id": 3,
-				"label": "D#"
+				"label": "Db"
 			},
 			{
 				"id": 4,
-				"label": "E"
+				"label": "D"
 			},
 			{
 				"id": 5,
-				"label": "E#"
+				"label": "D#"
 			},
 			{
 				"id": 6,
-				"label": "F"
+				"label": "Eb"
 			},
 			{
 				"id": 7,
-				"label": "F#"
+				"label": "E"
 			},
 			{
 				"id": 8,
-				"label": "G"
+				"label": "E#"
 			},
 			{
 				"id": 9,
-				"label": "G#"
+				"label": "Fb"
 			},
 			{
 				"id": 10,
-				"label": "A"
+				"label": "F"
 			},
 			{
 				"id": 11,
-				"label": "A#"
+				"label": "F#"
 			},
 			{
 				"id": 12,
+				"label": "Gb"
+			},
+			{
+				"id": 13,
+				"label": "G"
+			},
+			{
+				"id": 14,
+				"label": "G#"
+			},
+			{
+				"id": 15,
+				"label": "Ab"
+			},
+			{
+				"id": 16,
+				"label": "A"
+			},
+			{
+				"id": 17,
+				"label": "A#"
+			},
+			{
+				"id": 18,
+				"label": "Bb"
+			},
+			{
+				"id": 19,
 				"label": "B"
+			},
+			{
+				"id": 20,
+				"label": "B#"
 			}
 		]
 	};
