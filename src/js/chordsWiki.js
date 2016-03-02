@@ -119,11 +119,11 @@ if (typeof(chordsWiki) === 'undefined') {
 				url: CONST.DATA_URL,
 				type: 'get',
 				cache: true,
-				success: function(data, textStatus, jqXHR){
+				success: function(data, textStatus, jqXHR) {
 					populateSelect(data.chord_types, chordSelect);
 					populateSelect(data.chord_categories, categorySelect);
 				},
-				error: function(){
+				error: function() {
 					//TODO add error handling
 				}
 			});
@@ -154,23 +154,29 @@ if (typeof(chordsWiki) === 'undefined') {
 			}
 		};
 
+		/**
+		 * Attach events to UI elements
+		 */
 		var attachEvents = function() {
 
-			chordSelect.change(function(){
-				if(isSelectionValid(chordSelect)){
+			chordSelect.change(function() {
+				if (isSelectionValid(chordSelect)) {
 					console.log('valid');
 				}
 			});
 
-			categorySelect.change(function(){
-				if(isSelectionValid(categorySelect)){
+			categorySelect.change(function() {
+				if (isSelectionValid(categorySelect)) {
 					console.log('valid');
 				}
 			});
 		};
 
+		/**
+		 * Check if the selected option is valid (is not the placeholder)
+		 */
 		var isSelectionValid = function(select) {
-			return select.val()!=='';
+			return select.val() !== '';
 		};
 
 		init();
