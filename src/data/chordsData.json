@@ -1,22 +1,22 @@
 {
   "chord_instances": [
     {
-      "chords_id": 0,
+      "chord_id": 0,
       "type_id": 0,
       "notes": [0,4,8]
     },
     {
-      "chords_id": 0,
+      "chord_id": 0,
       "type_id": 1,
       "notes": [1,3,8]
     },
     {
-      "chords_id": 1,
+      "chord_id": 1,
       "type_id": 0,
       "notes": [2,6,10]
     },
     {
-      "chords_id": 1,
+      "chord_id": 1,
       "type_id": 1,
       "notes": [2,5,10]
     }

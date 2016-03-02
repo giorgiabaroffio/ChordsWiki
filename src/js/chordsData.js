@@ -13,22 +13,22 @@ if (typeof(chordsWiki.chordsData) === 'undefined') {
 	chordsWiki.chordsData = {
 		"chord_instances": [
 			{
-				"chords_id": 0,
+				"chord_id": 0,
 				"type_id": 0,
 				"notes": [0,4,8]
 			},
 			{
-				"chords_id": 0,
+				"chord_id": 0,
 				"type_id": 1,
 				"notes": [1,3,8]
 			},
 			{
-				"chords_id": 1,
+				"chord_id": 1,
 				"type_id": 0,
 				"notes": [2,6,10]
 			},
 			{
-				"chords_id": 1,
+				"chord_id": 1,
 				"type_id": 1,
 				"notes": [2,5,10]
 			}
@@ -42,26 +42,6 @@ if (typeof(chordsWiki.chordsData) === 'undefined') {
 			{
 				"id": 1,
 				"label": "D"
-			},
-			{
-				"id": 2,
-				"label": "E"
-			},
-			{
-				"id": 3,
-				"label": "F"
-			},
-			{
-				"id": 4,
-				"label": "G"
-			},
-			{
-				"id": 5,
-				"label": "A"
-			},
-			{
-				"id": 6,
-				"label": "B"
 			}
 		],
 		"chord_categories": [
