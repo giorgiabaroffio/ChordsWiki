@@ -16,7 +16,8 @@ if (typeof(chordsWiki) === 'undefined') {
 		var CONST = {
 			CSS: {
 				EAST_AREA: 'east_area',
-				WEST_AREA: 'west_area'
+				WEST_AREA: 'west_area',
+				DETAILS_ROW: 'details_row'
 			},
 			LABEL: {
 				SUBTITLE_EAST: 'Chord selection',
@@ -161,13 +162,13 @@ if (typeof(chordsWiki) === 'undefined') {
 
 			chordSelect.change(function() {
 				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
-					console.log(notesLookup(chordSelect.val(),categorySelect.val()));
+					displayChordDetails(notesLookup(chordSelect.val(),categorySelect.val()));
 				}
 			});
 
 			categorySelect.change(function() {
 				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
-					console.log(notesLookup(chordSelect.val(),categorySelect.val()));
+					displayChordDetails(notesLookup(chordSelect.val(),categorySelect.val()));
 				}
 			});
 		};
@@ -204,6 +205,17 @@ if (typeof(chordsWiki) === 'undefined') {
 				}
 			}
 			return labels;
+		};
+
+		/**
+		 * Render west area (chord details) and inject content
+		 */
+		var displayChordDetails = function(notes) {
+			var notesDetails = $('<span>');
+			notesDetails.addClass(CONST.CSS.DETAILS_ROW);
+			notesDetails.text('Notes: '+ notes.join());
+			$('.'+CONST.CSS.WEST_AREA).children('.'+CONST.CSS.DETAILS_ROW).remove();
+			$('.'+CONST.CSS.WEST_AREA).append(notesDetails);
 		};
 
 		init();
