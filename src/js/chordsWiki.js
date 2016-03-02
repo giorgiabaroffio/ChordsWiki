@@ -28,7 +28,8 @@ if (typeof(chordsWiki) === 'undefined') {
 		};
 
 		var config = {
-			chordsWikiContainer: 'body'
+			chordsWikiContainer: 'body',
+			staticData: true
 		};
 
 		$.extend(config, params);
@@ -45,7 +46,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			categorySelect = initializeSelect(categorySelect, CONST.LABEL.PLEASE_SELECT_CATEGORY);
 			render();
 			$(config.chordsWikiContainer).append(self.container);
-			loadData();
+			params.staticData ? loadStaticData() : loadData();
 			attachEvents();
 		};
 
@@ -124,9 +125,19 @@ if (typeof(chordsWiki) === 'undefined') {
 				},
 				error: function(){
 					//TODO add error handling
-					console.log('error!');
 				}
 			});
+
+		};
+
+		/**
+		 * Load data via chordsData object
+		 */
+		var loadStaticData = function() {
+
+			var data = chordsWiki.chordsData;
+			populateSelect(data.chord_types, chordSelect);
+			populateSelect(data.chord_categories, categorySelect);
 
 		};
 

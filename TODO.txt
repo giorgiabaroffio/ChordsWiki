@@ -1,7 +1,6 @@
 TODO
 - Add JsDoc
 - git ignore : uiDesigner.xml, workspace.xml
-- replace json with constants
 - create Keyboard object
 - manage notes lookup
 - manage communication between chartWiki and keyboard
