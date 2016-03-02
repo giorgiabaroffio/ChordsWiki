@@ -160,14 +160,14 @@ if (typeof(chordsWiki) === 'undefined') {
 		var attachEvents = function() {
 
 			chordSelect.change(function() {
-				if (isSelectionValid(chordSelect)) {
-					console.log('valid');
+				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
+					console.log(notesLookup(chordSelect.val(),categorySelect.val()));
 				}
 			});
 
 			categorySelect.change(function() {
-				if (isSelectionValid(categorySelect)) {
-					console.log('valid');
+				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
+					console.log(notesLookup(chordSelect.val(),categorySelect.val()));
 				}
 			});
 		};
@@ -177,6 +177,33 @@ if (typeof(chordsWiki) === 'undefined') {
 		 */
 		var isSelectionValid = function(select) {
 			return select.val() !== '';
+		};
+
+		/**
+		 * Retrieve the set of notes given the chord and the category
+		 */
+		var notesLookup = function(chord, category) {
+			var chordInstances = chordsWiki.chordsData.chord_instances;
+			for(var c in chordInstances){
+				if(chordInstances[c].chord_id=== parseInt(chord) && chordInstances[c].type_id===parseInt(category)) {
+					return getNotesLabelByIds(chordInstances[c].notes);
+				}
+			}
+			return false;
+		};
+
+		/**
+		 * Get notes labels by ids
+		 */
+		var getNotesLabelByIds = function(noteIds) {
+			var notes = chordsWiki.chordsData.notes;
+			var labels = [];
+			for(var n in notes){
+				if(noteIds.indexOf(notes[n].id)> -1) {
+					labels.push(notes[n].label);
+				}
+			}
+			return labels;
 		};
 
 		init();
