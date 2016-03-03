@@ -3,3 +3,4 @@ TODO
 - git ignore : uiDesigner.xml, workspace.xml
 - manage communication between chartWiki and keyboard
 - manage data get in a separated class (chordsData) ?
+- add instrument selection ? (later)
