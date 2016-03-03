@@ -174,11 +174,17 @@ if (typeof(chordsWiki) === 'undefined') {
 				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
 					displayChordDetails(notesLookup(chordSelect.val(),categorySelect.val()));
 				}
+				else{
+					cleanChordDetails();
+				}
 			});
 
 			categorySelect.change(function() {
 				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
 					displayChordDetails(notesLookup(chordSelect.val(),categorySelect.val()));
+				}
+				else{
+					cleanChordDetails();
 				}
 			});
 		};
@@ -228,6 +234,17 @@ if (typeof(chordsWiki) === 'undefined') {
 			}
 			notesDetails.empty().text(CONST.LABEL.DETAILS_HEADING + notes.join());
 		};
+
+		/**
+		 * Clean chord details area
+		 */
+		var cleanChordDetails = function() {
+			if (notesDetails !== null) {
+				notesDetails.empty();
+			}
+		};
+
+
 
 		init();
 
