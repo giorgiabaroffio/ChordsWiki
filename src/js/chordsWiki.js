@@ -25,6 +25,11 @@ if (typeof(chordsWiki) === 'undefined') {
 				PLEASE_SELECT_CHORD: 'Please select a chord',
 				PLEASE_SELECT_CATEGORY: 'Please select a category'
 			},
+			SELECTOR: {
+				EAST_AREA: '.east_area',
+				WEST_AREA: '.west_area',
+				DETAILS_ROW: '.details_row'
+			},
 			DATA_URL: 'src/data/chordsData.json'
 		};
 
@@ -217,8 +222,8 @@ if (typeof(chordsWiki) === 'undefined') {
 			var notesDetails = $('<span>');
 			notesDetails.addClass(CONST.CSS.DETAILS_ROW);
 			notesDetails.text('Notes: '+ notes.join());
-			$('.'+CONST.CSS.WEST_AREA).children('.'+CONST.CSS.DETAILS_ROW).remove();
-			$('.'+CONST.CSS.WEST_AREA).append(notesDetails);
+			$(CONST.SELECTOR.WEST_AREA).children(CONST.SELECTOR.DETAILS_ROW).remove();
+			$(CONST.SELECTOR.WEST_AREA).append(notesDetails);
 		};
 
 		init();
