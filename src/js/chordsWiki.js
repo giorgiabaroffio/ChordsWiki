@@ -23,7 +23,8 @@ if (typeof(chordsWiki) === 'undefined') {
 				SUBTITLE_EAST: 'Chord selection',
 				SUBTITLE_WEST: 'Chord details',
 				PLEASE_SELECT_CHORD: 'Please select a chord',
-				PLEASE_SELECT_CATEGORY: 'Please select a category'
+				PLEASE_SELECT_CATEGORY: 'Please select a category',
+				DETAILS_HEADING: 'Notes: '
 			},
 			SELECTOR: {
 				EAST_AREA: '.east_area',
@@ -46,6 +47,7 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var chordSelect = null;
 		var categorySelect = null;
+		var notesDetails = null;
 
 		var keyboard = null;
 
@@ -219,11 +221,12 @@ if (typeof(chordsWiki) === 'undefined') {
 		 * Render west area (chord details) and inject content
 		 */
 		var displayChordDetails = function(notes) {
-			var notesDetails = $('<span>');
-			notesDetails.addClass(CONST.CSS.DETAILS_ROW);
-			notesDetails.text('Notes: '+ notes.join());
-			$(CONST.SELECTOR.WEST_AREA).children(CONST.SELECTOR.DETAILS_ROW).remove();
-			$(CONST.SELECTOR.WEST_AREA).append(notesDetails);
+			if (notesDetails === null) {
+				notesDetails = $('<span>');
+				notesDetails.addClass(CONST.CSS.DETAILS_ROW);
+				$(CONST.SELECTOR.WEST_AREA).append(notesDetails);
+			}
+			notesDetails.empty().text(CONST.LABEL.DETAILS_HEADING + notes.join());
 		};
 
 		init();
