@@ -1,6 +1,5 @@
 TODO
 - Add JsDoc
 - git ignore : uiDesigner.xml, workspace.xml
-- create Keyboard object
 - manage communication between chartWiki and keyboard
 - manage data get in a separated class (chordsData) ?

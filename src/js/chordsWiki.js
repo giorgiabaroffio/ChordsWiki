@@ -42,6 +42,8 @@ if (typeof(chordsWiki) === 'undefined') {
 		var chordSelect = null;
 		var categorySelect = null;
 
+		var keyboard = null;
+
 		var init = function() {
 			chordSelect = initializeSelect(chordSelect, CONST.LABEL.PLEASE_SELECT_CHORD);
 			categorySelect = initializeSelect(categorySelect, CONST.LABEL.PLEASE_SELECT_CATEGORY);
@@ -49,6 +51,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			$(config.chordsWikiContainer).append(self.container);
 			params.staticData ? loadStaticData() : loadData();
 			attachEvents();
+			keyboard = new chordsWiki.keyboard.Main();
 		};
 
 		/**
