@@ -1,6 +1,7 @@
 TODO
 - Add JsDoc
 - git ignore : uiDesigner.xml, workspace.xml
+- add 'key' reference for note elements in json data, e.g. "notes": [ "id": 0, "label": "Cb", "key": 11 }, {    "id": 1, "label": "C", "key": 0  },)
 - manage communication between chartWiki and keyboard
 - manage data get in a separated class (chordsData) ?
 - add instrument selection ? (later)
