@@ -48,7 +48,6 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var chordSelect = null;
 		var categorySelect = null;
-		var notesDetails = null;
 
 		var keyboard = null;
 
@@ -153,23 +152,19 @@ if (typeof(chordsWiki) === 'undefined') {
 
 			chordSelect.change(function() {
 				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
-					var notes = notesLookup(chordSelect.val(),categorySelect.val());
-					displayChordDetails(getNotesLabelByIds(notes));
-					keyboard.displayNotes(notes);
+					keyboard.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
-					cleanChordDetails();
+					keyboard.cleanNotes();
 				}
 			});
 
 			categorySelect.change(function() {
 				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
-					var notes = notesLookup(chordSelect.val(),categorySelect.val());
-					displayChordDetails(getNotesLabelByIds(notes));
-					keyboard.displayNotes(notes);
+					keyboard.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
-					cleanChordDetails();
+					keyboard.cleanNotes();
 				}
 			});
 		};
@@ -179,54 +174,6 @@ if (typeof(chordsWiki) === 'undefined') {
 		 */
 		var isSelectionValid = function(select) {
 			return select.val() !== '';
-		};
-
-		/**
-		 * Retrieve the set of notes given the chord and the category
-		 */
-		var notesLookup = function(chord, category) {
-			var chordInstances = chordsWiki.chordsData.chord_instances;
-			for(var c in chordInstances){
-				if(chordInstances[c].chord_id=== parseInt(chord) && chordInstances[c].type_id===parseInt(category)) {
-					return chordInstances[c].notes;
-				}
-			}
-			return false;
-		};
-
-		/**
-		 * Get notes labels by ids
-		 */
-		var getNotesLabelByIds = function(noteIds) {
-			var notes = chordsWiki.chordsData.notes;
-			var labels = [];
-			for(var n in notes){
-				if(noteIds.indexOf(notes[n].id)> -1) {
-					labels.push(notes[n].label);
-				}
-			}
-			return labels;
-		};
-
-		/**
-		 * Render west area (chord details) and inject content
-		 */
-		var displayChordDetails = function(notes) {
-			if (notesDetails === null) {
-				notesDetails = $('<span>');
-				notesDetails.addClass(CONST.CSS.DETAILS_ROW);
-				$(CONST.SELECTOR.WEST_AREA).append(notesDetails);
-			}
-			notesDetails.empty().text(CONST.LABEL.DETAILS_HEADING + notes.join());
-		};
-
-		/**
-		 * Clean chord details area
-		 */
-		var cleanChordDetails = function() {
-			if (notesDetails !== null) {
-				notesDetails.empty();
-			}
 		};
 
 		init();
