@@ -153,7 +153,9 @@ if (typeof(chordsWiki) === 'undefined') {
 
 			chordSelect.change(function() {
 				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
-					displayChordDetails(notesLookup(chordSelect.val(),categorySelect.val()));
+					var notes = notesLookup(chordSelect.val(),categorySelect.val());
+					displayChordDetails(getNotesLabelByIds(notes));
+					keyboard.displayNotes(notes);
 				}
 				else{
 					cleanChordDetails();
@@ -162,7 +164,9 @@ if (typeof(chordsWiki) === 'undefined') {
 
 			categorySelect.change(function() {
 				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
-					displayChordDetails(notesLookup(chordSelect.val(),categorySelect.val()));
+					var notes = notesLookup(chordSelect.val(),categorySelect.val());
+					displayChordDetails(getNotesLabelByIds(notes));
+					keyboard.displayNotes(notes);
 				}
 				else{
 					cleanChordDetails();
@@ -184,7 +188,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			var chordInstances = chordsWiki.chordsData.chord_instances;
 			for(var c in chordInstances){
 				if(chordInstances[c].chord_id=== parseInt(chord) && chordInstances[c].type_id===parseInt(category)) {
-					return getNotesLabelByIds(chordInstances[c].notes);
+					return chordInstances[c].notes;
 				}
 			}
 			return false;

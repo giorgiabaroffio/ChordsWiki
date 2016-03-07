@@ -1,4 +1,5 @@
 TODO
+- Refactor chordsWiki and keyboard for separation of concerns (only keyboard must display chord details)
 - Add JsDoc
 - git ignore : uiDesigner.xml, workspace.xml
 - implement keyboard rendering
