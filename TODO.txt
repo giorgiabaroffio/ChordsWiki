@@ -5,3 +5,7 @@ TODO
 - manage communication between chartWiki and keyboard
 - manage data get in a separated class (chordsData) ?
 - add instrument selection ? (later)
+- manage external data in addition to default data (internal static json)
+	- change input parameter (url of data)
+	- choose between json / class instance object as data source
+	- add validation on input data
