@@ -37,7 +37,7 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var config = {
 			rootElement: $('body'),
-			staticData: true
+			dataSource: chordsWiki.chordsData
 		};
 
 		$.extend(config, params);
@@ -57,7 +57,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			categorySelect = initializeSelect(categorySelect, CONST.LABEL.PLEASE_SELECT_CATEGORY);
 			render();
 			config.rootElement.append(self.container);
-			params.staticData ? loadStaticData() : loadData();
+			loadData();
 			attachEvents();
 			keyboard = new chordsWiki.keyboard.Main();
 		};
@@ -124,30 +124,10 @@ if (typeof(chordsWiki) === 'undefined') {
 		};
 
 		/**
-		 * Load data via ajax get call
+		 * Load data via chordsData object (default option) or via an external json object
 		 */
 		var loadData = function() {
-			$.ajax({
-				url: CONST.DATA_URL,
-				type: 'get',
-				cache: true,
-				success: function(data, textStatus, jqXHR) {
-					populateSelect(data.chord_types, chordSelect);
-					populateSelect(data.chord_categories, categorySelect);
-				},
-				error: function() {
-					//TODO add error handling
-				}
-			});
-
-		};
-
-		/**
-		 * Load data via chordsData object
-		 */
-		var loadStaticData = function() {
-
-			var data = chordsWiki.chordsData;
+			var data = config.dataSource;
 			populateSelect(data.chord_types, chordSelect);
 			populateSelect(data.chord_categories, categorySelect);
 
