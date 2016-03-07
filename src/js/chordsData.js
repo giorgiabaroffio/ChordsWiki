@@ -1,15 +1,16 @@
-if (typeof(jQuery) === 'undefined') {
-	throw('Unable to find jQuery');
+/* jshint camelcase: false, quotmark: double */
+if (typeof(jQuery) === "undefined") {
+	throw("Unable to find jQuery");
 }
 
-if (typeof(chordsWiki) === 'undefined') {
+if (typeof(chordsWiki) === "undefined") {
 	/* jshint ignore:start */
 	var chordsWiki = {};
 	/* jshint ignore:end */
 }
 
-if (typeof(chordsWiki.chordsData) === 'undefined') {
-	/* jshint ignore:start */
+if (typeof(chordsWiki.chordsData) === "undefined") {
+
 	chordsWiki.chordsData = {
 		"chord_instances": [
 			{
@@ -141,5 +142,5 @@ if (typeof(chordsWiki.chordsData) === 'undefined') {
 			}
 		]
 	};
-	/* jshint ignore:end */
+
 }

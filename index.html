@@ -11,7 +11,7 @@
 		$(document).ready(function() {
 			var wikiContainer = $('<div>');
 			$('body').append(wikiContainer);
-			var wiki = new chordsWiki.Main({chordsWikiContainer:wikiContainer, staticData: true});
+			var wiki = new chordsWiki.Main({rootElement:wikiContainer, staticData: true});
 		});
 	</script>
 </head>

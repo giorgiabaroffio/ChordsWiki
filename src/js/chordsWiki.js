@@ -1,3 +1,4 @@
+/* jshint camelcase: false*/
 if (typeof(jQuery) === 'undefined') {
 	throw('Unable to find jQuery');
 }
@@ -35,7 +36,7 @@ if (typeof(chordsWiki) === 'undefined') {
 		};
 
 		var config = {
-			chordsWikiContainer: $('body'),
+			rootElement: $('body'),
 			staticData: true
 		};
 
@@ -55,7 +56,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			chordSelect = initializeSelect(chordSelect, CONST.LABEL.PLEASE_SELECT_CHORD);
 			categorySelect = initializeSelect(categorySelect, CONST.LABEL.PLEASE_SELECT_CATEGORY);
 			render();
-			config.chordsWikiContainer.append(self.container);
+			config.rootElement.append(self.container);
 			params.staticData ? loadStaticData() : loadData();
 			attachEvents();
 			keyboard = new chordsWiki.keyboard.Main();
