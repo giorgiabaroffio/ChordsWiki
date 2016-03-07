@@ -49,87 +49,108 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		"notes": [
 			{
 				"id": 0,
-				"label": "Cb"
+				"label": "Cb",
+				"key": 11
 			},
 			{
 				"id": 1,
-				"label": "C"
+				"label": "C",
+				"key": 0
 			},
 			{
 				"id": 2,
-				"label": "C#"
+				"label": "C#",
+				"key": 1
 			},
 			{
 				"id": 3,
-				"label": "Db"
+				"label": "Db",
+				"key": 1
 			},
 			{
 				"id": 4,
-				"label": "D"
+				"label": "D",
+				"key": 2
 			},
 			{
 				"id": 5,
-				"label": "D#"
+				"label": "D#",
+				"key": 3
 			},
 			{
 				"id": 6,
-				"label": "Eb"
+				"label": "Eb",
+				"key": 3
 			},
 			{
 				"id": 7,
-				"label": "E"
+				"label": "E",
+				"key": 4
 			},
 			{
 				"id": 8,
-				"label": "E#"
+				"label": "E#",
+				"key": 5
 			},
 			{
 				"id": 9,
-				"label": "Fb"
+				"label": "Fb",
+				"key": 4
 			},
 			{
 				"id": 10,
-				"label": "F"
+				"label": "F",
+				"key": 5
 			},
 			{
 				"id": 11,
-				"label": "F#"
+				"label": "F#",
+				"key": 6
 			},
 			{
 				"id": 12,
-				"label": "Gb"
+				"label": "Gb",
+				"key": 6
 			},
 			{
 				"id": 13,
-				"label": "G"
+				"label": "G",
+				"key": 7
 			},
 			{
 				"id": 14,
-				"label": "G#"
+				"label": "G#",
+				"key": 8
 			},
 			{
 				"id": 15,
-				"label": "Ab"
+				"label": "Ab",
+				"key": 8
 			},
 			{
 				"id": 16,
-				"label": "A"
+				"label": "A",
+				"key": 9
 			},
 			{
 				"id": 17,
-				"label": "A#"
+				"label": "A#",
+				"key": 10
 			},
 			{
 				"id": 18,
-				"label": "Bb"
+				"label": "Bb",
+				"key": 10
 			},
 			{
 				"id": 19,
-				"label": "B"
+				"label": "B",
+				"key": 11
 			},
 			{
 				"id": 20,
-				"label": "B#"
+				"label": "B#",
+				"key": 0
 			}
 		]
 	};
