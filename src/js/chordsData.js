@@ -1,13 +1,4 @@
 /* jshint camelcase: false, quotmark: double */
-if (typeof(jQuery) === "undefined") {
-	throw("Unable to find jQuery");
-}
-
-if (typeof(chordsWiki) === "undefined") {
-	/* jshint ignore:start */
-	var chordsWiki = {};
-	/* jshint ignore:end */
-}
 
 if (typeof(chordsWiki.chordsData) === "undefined") {
 
