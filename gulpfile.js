@@ -22,8 +22,9 @@ var CONST = {
 	MIN_SUFFIX: '.min.js',
 	JS_SOURCE_FILES: [
 		'src/js/chordsWiki.js',
+		'src/js/Wiki.js',
 		'src/js/chordsData.js',
-		'src/js/keyboard.js'
+		'src/js/Keyboard.js'
 	],
 	SCSS_FOLDER: 'src/sass/*.scss'
 };

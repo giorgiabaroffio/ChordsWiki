@@ -8,11 +8,10 @@ if (typeof(chordsWiki) === 'undefined') {
 	var chordsWiki = {};
 	/* jshint ignore:end */
 }
-
 (function() {
 	'use strict';
 
-	chordsWiki.Main = function(params) {
+	chordsWiki.Wiki = function(params) {
 
 		var CONST = {
 			CSS: {
@@ -58,7 +57,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			config.rootElement.append(self.container);
 			loadData();
 			attachEvents();
-			keyboard = new chordsWiki.keyboard.Main();
+			keyboard = new chordsWiki.Keyboard();
 		};
 
 		/**
@@ -181,6 +180,7 @@ if (typeof(chordsWiki) === 'undefined') {
 	};
 
 }());
+
 /* jshint camelcase: false, quotmark: double */
 
 if (typeof(chordsWiki.chordsData) === "undefined") {
@@ -218,7 +218,7 @@ if (typeof(chordsWiki.keyboard) === 'undefined') {
 (function() {
 	'use strict';
 
-	chordsWiki.keyboard.Main = function(params) {
+	chordsWiki.Keyboard = function(params) {
 
 		var CONST = {
 			CSS: {

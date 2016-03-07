@@ -9,4 +9,4 @@ TODO
 	- add validation on input data
 - zip of dist
 - chordsData wrapper object with getter
-- unit test with jasmine
+- increase test coverage

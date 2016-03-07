@@ -7,7 +7,7 @@ if (typeof(chordsWiki.keyboard) === 'undefined') {
 (function() {
 	'use strict';
 
-	chordsWiki.keyboard.Main = function(params) {
+	chordsWiki.Keyboard = function(params) {
 
 		var CONST = {
 			CSS: {
