@@ -9,11 +9,12 @@
 	<script src="src/js/keyboard.js"></script>
 	<script>
 		$(document).ready(function() {
-			var wiki = new chordsWiki.Main({chordsWikiContainer:'.wikiContainer', staticData: true});
+			var wikiContainer = $('<div>');
+			$('body').append(wikiContainer);
+			var wiki = new chordsWiki.Main({chordsWikiContainer:wikiContainer, staticData: true});
 		});
 	</script>
 </head>
 <body>
-	<div class="wikiContainer"></div>
 </body>
 </html>
