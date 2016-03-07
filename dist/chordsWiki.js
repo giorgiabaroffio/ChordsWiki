@@ -443,7 +443,7 @@ if (typeof(chordsWiki.keyboard) === 'undefined') {
 			if (notesTextRow === null) {
 				notesTextRow = $('<span>');
 			}
-			self.container.empty().text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ', ' + CONST.LABEL.KEYS + ' ' + keys.join());
+			self.container.empty().text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + keys.join());
 
 		};
 

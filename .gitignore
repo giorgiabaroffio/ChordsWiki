@@ -1,3 +1,4 @@
 node_modules/
 .idea/uiDesigner.xml
 .idea/workspace.xml
+test/coverage
