@@ -2,6 +2,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var watch = require('gulp-watch');
 var changed = require('gulp-changed');
 var concat = require('gulp-concat');
 var fs = require('fs');
@@ -81,4 +82,8 @@ gulp.task('default', function(callback){
 				}
 				callback(error);
 			});
+});
+
+gulp.task('watch', function(){
+	gulp.watch('src/sass/**/*.scss', ['scss']);
 });
