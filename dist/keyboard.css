@@ -1,17 +1,9 @@
-.east_area {
-  float: left;
-  width: 50%; }
-
-.west_area {
-  float: right;
-  width: 50%; }
-
 .key {
   float: left;
   position: relative;
   width: calc(100% / 7);
   border: 2px solid #959595;
-  height: 150px;
+  height: calc(100% / 3);
   box-sizing: border-box; }
 
 .key:not(:first-child) {
@@ -32,4 +24,4 @@
   height: 0;
   clear: both; }
 
-/*# sourceMappingURL=chordsWiki.css.map */
+/*# sourceMappingURL=keyboard.css.map */

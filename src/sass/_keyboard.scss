@@ -1,0 +1,29 @@
+.key{
+	float: left;
+	position: relative;
+	width: calc(100% / 7);
+	border: 2px solid #959595;
+	height: 150px;
+	box-sizing: border-box;
+}
+
+.key:not(:first-child){
+	border-left:none;
+}
+
+.black_key{
+	position: absolute;
+	left: 53%;
+	background-color: black;
+	border: 2px solid black;
+	width: 94%;
+	height: 50%;
+}
+
+.clearfix:after {
+	content: "";
+	visibility: hidden;
+	display: block;
+	height: 0;
+	clear: both;
+}

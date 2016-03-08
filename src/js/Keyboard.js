@@ -11,7 +11,9 @@ if (typeof(chordsWiki.keyboard) === 'undefined') {
 
 		var CONST = {
 			CSS: {
-
+				CLEARFIX : 'clearfix',
+				WHITE_KEY : 'key',
+				BLACK_KEY : 'black_key'
 			},
 			LABEL: {
 				NOTES: 'Notes',
@@ -170,14 +172,39 @@ if (typeof(chordsWiki.keyboard) === 'undefined') {
 		var self = this;
 
 		var init = function() {
-			render();
+			self.container.append(render());
 			config.rootElement.append(self.container);
 		};
+
+		/**
+		 * Create the key object
+		 */
+		var createWhiteKey = function(addBlackKey) {
+			var whiteKey = $('<div>');
+			whiteKey.addClass(CONST.CSS.WHITE_KEY);
+			if(addBlackKey===true){
+				var blackKey = $('<div>');
+				blackKey.addClass(CONST.CSS.BLACK_KEY);
+				whiteKey.append(blackKey);
+			}
+			return whiteKey;
+		}
 
 		/**
 		* Render the UI of the keyboard
 		*/
 		var render = function() {
+			var keyboardContainer = $('<div>');
+			keyboardContainer.addClass(CONST.CSS.CLEARFIX);
+
+			keyboardContainer.append(createWhiteKey(true));
+			keyboardContainer.append(createWhiteKey(true));
+			keyboardContainer.append(createWhiteKey(false));
+			keyboardContainer.append(createWhiteKey(true));
+			keyboardContainer.append(createWhiteKey(true));
+			keyboardContainer.append(createWhiteKey(true));
+			keyboardContainer.append(createWhiteKey(false));
+			return keyboardContainer;
 
 		};
 
@@ -231,8 +258,9 @@ if (typeof(chordsWiki.keyboard) === 'undefined') {
 			var keys = getNotesKeysByIds(notes);
 			if (notesTextRow === null) {
 				notesTextRow = $('<span>');
+				self.container.append(notesTextRow);
 			}
-			self.container.empty().text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + keys.join());
+			notesTextRow.empty().text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + keys.join());
 
 		};
 
@@ -240,7 +268,10 @@ if (typeof(chordsWiki.keyboard) === 'undefined') {
 		 * Clean notes on keyboard
 		 */
 		this.cleanNotes = function(){
-			self.container.empty();
+			if (notesTextRow !== null) {
+				notesTextRow.empty();
+			}
+
 		};
 
 		init();
