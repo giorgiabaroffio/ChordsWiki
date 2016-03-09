@@ -2,7 +2,7 @@ describe('chordsWiki.Wiki', function() {
 
 	'use strict';
 
-	var wiki, uiContainer;
+	var wiki, uiContainer, mainElement, eastDivElement, westDivElement;
 
 	var CONST = {
 		CSS: {
@@ -38,24 +38,32 @@ describe('chordsWiki.Wiki', function() {
 
 			describe('contains: ', function() {
 
+				beforeEach(function() {
+					mainElement = wiki.container.children('main:first');
+				});
+
 				it('two <div> child elements', function() {
-					expect(wiki.container.children('main:first').find('> div').length).toEqual(2);
+					expect(mainElement.find('> div').length).toEqual(2);
 				});
 
 				describe('the first <div> element: ', function() {
 
+					beforeEach(function() {
+						eastDivElement = mainElement.children('div:nth-child(1)');
+					});
+
 					it('has css class ' + CONST.CSS.EAST_AREA, function() {
-						expect(wiki.container.children('main:first').children('div:nth-child(1)').hasClass(CONST.CSS.EAST_AREA)).toEqual(true);
+						expect(eastDivElement.hasClass(CONST.CSS.EAST_AREA)).toEqual(true);
 					});
 
 					describe('contains: ', function() {
 
 						it('one header <h2> element', function() {
-							expect(wiki.container.children('main:first').children('div:nth-child(1)').find('> h2').length).toEqual(1);
+							expect(eastDivElement.find('> h2').length).toEqual(1);
 						});
 
 						it('two <select> child elements', function() {
-							expect(wiki.container.children('main:first').children('div:nth-child(1)').find('> select').length).toEqual(2);
+							expect(eastDivElement.find('> select').length).toEqual(2);
 						});
 
 					});
@@ -63,14 +71,18 @@ describe('chordsWiki.Wiki', function() {
 
 				describe('the second <div> element: ', function() {
 
+					beforeEach(function() {
+						westDivElement = mainElement.children('div:nth-child(2)');
+					});
+
 					it('has css class ' + CONST.CSS.WEST_AREA, function() {
-						expect(wiki.container.children('main:first').children('div:nth-child(2)').hasClass(CONST.CSS.WEST_AREA)).toEqual(true);
+						expect(westDivElement.hasClass(CONST.CSS.WEST_AREA)).toEqual(true);
 					});
 
 					describe('contains: ', function() {
 
 						it('one header <h2> element', function() {
-							expect(wiki.container.children('main:first').children('div:nth-child(2)').find('> h2').length).toEqual(1);
+							expect(westDivElement.find('> h2').length).toEqual(1);
 						});
 
 					});
