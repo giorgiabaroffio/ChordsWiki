@@ -2,7 +2,7 @@ describe('chordsWiki.Wiki', function() {
 
 	'use strict';
 
-	var wiki, uiContainer, mainElement, eastDivElement, westDivElement;
+	var wiki, uiContainer, mainElement, eastDivElement, westDivElement, chordSelection, categorySelection;
 
 	var CONST = {
 		CSS: {
@@ -64,6 +64,35 @@ describe('chordsWiki.Wiki', function() {
 
 						it('two <select> child elements', function() {
 							expect(eastDivElement.find('> select').length).toEqual(2);
+						});
+
+						describe('the first <select> element: ', function() {
+
+							beforeEach(function() {
+								chordSelection = eastDivElement.children('select')[0];
+							});
+
+							it('has a placeholder label with empty value as first option', function() {
+								expect($(chordSelection).children('option:first').val()).toEqual('');
+							});
+							it('has other 2 not empty options', function() {
+								expect($(chordSelection).children('option:not(:first)').length).toEqual(2);
+							});
+						});
+
+						describe('the second <select> element: ', function() {
+
+							beforeEach(function() {
+								categorySelection = eastDivElement.children('select')[1];
+							});
+
+							it('has a placeholder label with empty value as first option', function() {
+								expect($(categorySelection).children('option:first').val()).toEqual('');
+							});
+							it('has other 2 not empty options', function() {
+								expect($(categorySelection).children('option:not(:first)').length).toEqual(2);
+							});
+
 						});
 
 					});
