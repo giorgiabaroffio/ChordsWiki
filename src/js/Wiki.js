@@ -45,13 +45,15 @@
 			config.rootElement.append(self.container);
 			loadData();
 			attachEvents();
-			if (typeof(config.instrument) === 'undefined'){
-				initDefaultInstrument();
-			}
+			initInstrument();
+
 		};
 
-		var initDefaultInstrument = function() {
-			config.instrument = new chordsWiki.Keyboard();
+		var initInstrument = function() {
+			if (typeof(config.instrument) === 'undefined'){
+				config.instrument = new chordsWiki.Keyboard();
+			}
+			$(CONST.SELECTOR.WEST_AREA).append(config.instrument.container);
 		};
 
 		/**

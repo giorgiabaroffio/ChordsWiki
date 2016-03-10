@@ -8,8 +8,9 @@
 	<script>
 		$(document).ready(function() {
 			var wikiContainer = $('<div>');
-			$('body').append(wikiContainer);
+			var keyboard = new chordsWiki.Keyboard();
 
+			$('body').append(wikiContainer);
 
 			var data = {
 				"chord_types": [{
@@ -30,6 +31,7 @@
 			var wiki = new chordsWiki.Wiki({
 				rootElement: wikiContainer,
 				dataSource: data,
+				instrument: keyboard
 			});
 		});
 	</script>
