@@ -2,7 +2,8 @@ describe('chordsWiki.Wiki', function() {
 
 	'use strict';
 
-	var wiki, customWiki, uiContainer, mainElement, eastDivElement, westDivElement, chordSelection, categorySelection;
+	var wiki, customWiki;
+	var uiContainer, mainElement, eastDivElement, westDivElement, chordSelection, categorySelection;
 	var data;
 
 	var CONST = {
@@ -17,7 +18,7 @@ describe('chordsWiki.Wiki', function() {
 		uiContainer = $('<div>');
 
 		wiki = new chordsWiki.Wiki({
-			rootElement: uiContainer,
+			rootElement: uiContainer
 		});
 
 		/* jshint ignore:start */
@@ -43,6 +44,7 @@ describe('chordsWiki.Wiki', function() {
 			rootElement: uiContainer,
 			dataSource: data
 		});
+
 	});
 
 	it('is the function that I need to instantiate to display a new chords wiki', function() {
@@ -84,6 +86,11 @@ describe('chordsWiki.Wiki', function() {
 
 					describe('contains: ', function() {
 
+						beforeEach(function() {
+							chordSelection = eastDivElement.children('select')[0];
+							categorySelection = eastDivElement.children('select')[1];
+						});
+
 						it('one header <h2> element', function() {
 							expect(eastDivElement.find('> h2').length).toEqual(1);
 						});
@@ -93,10 +100,6 @@ describe('chordsWiki.Wiki', function() {
 						});
 
 						describe('the first <select> element: ', function() {
-
-							beforeEach(function() {
-								chordSelection = eastDivElement.children('select')[0];
-							});
 
 							it('has a placeholder label with empty value as first option', function() {
 								expect($(chordSelection).children('option:first').val()).toEqual('');
@@ -108,16 +111,37 @@ describe('chordsWiki.Wiki', function() {
 
 						describe('the second <select> element: ', function() {
 
-							beforeEach(function() {
-								categorySelection = eastDivElement.children('select')[1];
-							});
-
 							it('has a placeholder label with empty value as first option', function() {
 								expect($(categorySelection).children('option:first').val()).toEqual('');
 							});
 							it('has other 2 not empty options', function() {
 								expect($(categorySelection).children('option:not(:first)').length).toEqual(2);
 							});
+
+						});
+
+						it('when both <select> fields have a valid selection, Keyboard.displayNotes is invoked', function() {
+
+							var customContainer = $('<div>');
+							var keyboard = new chordsWiki.Keyboard();
+							spyOn(keyboard, 'displayNotes');
+							var wikiWithCustomInstrument = new chordsWiki.Wiki({
+								rootElement: customContainer,
+								dataSource: data,
+								instrument: keyboard
+							});
+
+							var mainElementWithCustomInstrument = wikiWithCustomInstrument.container.children('main:first');
+							var eastDivElementWithCustomInstrument = mainElementWithCustomInstrument.children('div:nth-child(1)');
+
+							var chordSelectionWithCustomInstrument = eastDivElementWithCustomInstrument.children('select')[0];
+							var categorySelectionWithCustomInstrument = eastDivElementWithCustomInstrument.children('select')[1];
+
+							$(chordSelectionWithCustomInstrument).val(1).change();
+							$(categorySelectionWithCustomInstrument).val(1).change();
+
+							expect(keyboard.displayNotes).toHaveBeenCalled();
+
 
 						});
 
@@ -148,4 +172,3 @@ describe('chordsWiki.Wiki', function() {
 	});
 
 });
-
