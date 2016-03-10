@@ -38,8 +38,6 @@
 		var chordSelect = null;
 		var categorySelect = null;
 
-		var keyboard = null;
-
 		var init = function() {
 			chordSelect = initializeSelect(chordSelect, CONST.LABEL.PLEASE_SELECT_CHORD);
 			categorySelect = initializeSelect(categorySelect, CONST.LABEL.PLEASE_SELECT_CATEGORY);
@@ -47,7 +45,13 @@
 			config.rootElement.append(self.container);
 			loadData();
 			attachEvents();
-			keyboard = new chordsWiki.Keyboard();
+			if (typeof(config.instrument) === 'undefined'){
+				initDefaultInstrument();
+			}
+		};
+
+		var initDefaultInstrument = function() {
+			config.instrument = new chordsWiki.Keyboard();
 		};
 
 		/**
@@ -141,19 +145,19 @@
 
 			chordSelect.change(function() {
 				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
-					keyboard.displayNotes(chordSelect.val(),categorySelect.val());
+					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
-					keyboard.cleanNotes();
+					config.instrument.cleanNotes();
 				}
 			});
 
 			categorySelect.change(function() {
 				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
-					keyboard.displayNotes(chordSelect.val(),categorySelect.val());
+					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
-					keyboard.cleanNotes();
+					config.instrument.cleanNotes();
 				}
 			});
 		};

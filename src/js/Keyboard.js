@@ -1,6 +1,6 @@
-if (typeof(chordsWiki.keyboard) === 'undefined') {
+if (typeof(chordsWiki.Keyboard) === 'undefined') {
 	/* jshint ignore:start */
-	chordsWiki.keyboard = {};
+	chordsWiki.Keyboard = {};
 	/* jshint ignore:end */
 }
 

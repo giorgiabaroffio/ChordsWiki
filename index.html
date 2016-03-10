@@ -9,6 +9,8 @@
 		$(document).ready(function() {
 			var wikiContainer = $('<div>');
 			$('body').append(wikiContainer);
+
+
 			var data = {
 				"chord_types": [{
 					"id": 0,
@@ -27,7 +29,7 @@
 			};
 			var wiki = new chordsWiki.Wiki({
 				rootElement: wikiContainer,
-				dataSource: data
+				dataSource: data,
 			});
 		});
 	</script>
