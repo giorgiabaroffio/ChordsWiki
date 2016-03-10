@@ -2,7 +2,8 @@ describe('chordsWiki.Wiki', function() {
 
 	'use strict';
 
-	var wiki, uiContainer, mainElement, eastDivElement, westDivElement, chordSelection, categorySelection;
+	var wiki, customWiki, uiContainer, mainElement, eastDivElement, westDivElement, chordSelection, categorySelection;
+	var data;
 
 	var CONST = {
 		CSS: {
@@ -14,8 +15,33 @@ describe('chordsWiki.Wiki', function() {
 
 	beforeEach(function() {
 		uiContainer = $('<div>');
+
 		wiki = new chordsWiki.Wiki({
-			rootElement: uiContainer
+			rootElement: uiContainer,
+		});
+
+		/* jshint ignore:start */
+		data = {
+			"chord_types": [{
+				"id": 0,
+				"label": "C_custom"
+			}, {
+				"id": 1,
+				"label": "D_custom"
+			}],
+			"chord_categories": [{
+				"id": 0,
+				"label": "major_custom"
+			}, {
+				"id": 1,
+				"label": "minor_custom"
+			}]
+		};
+		/* jshint ignore:end */
+
+		customWiki = new chordsWiki.Wiki({
+			rootElement: uiContainer,
+			dataSource: data
 		});
 	});
 
@@ -53,7 +79,7 @@ describe('chordsWiki.Wiki', function() {
 					});
 
 					it('has css class ' + CONST.CSS.EAST_AREA, function() {
-						expect(eastDivElement.hasClass(CONST.CSS.EAST_AREA)).toEqual(true);
+						expect(eastDivElement).toHaveClass(CONST.CSS.EAST_AREA);
 					});
 
 					describe('contains: ', function() {
@@ -105,7 +131,7 @@ describe('chordsWiki.Wiki', function() {
 					});
 
 					it('has css class ' + CONST.CSS.WEST_AREA, function() {
-						expect(westDivElement.hasClass(CONST.CSS.WEST_AREA)).toEqual(true);
+						expect(westDivElement).toHaveClass(CONST.CSS.WEST_AREA);
 					});
 
 					describe('contains: ', function() {
