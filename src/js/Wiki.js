@@ -26,7 +26,8 @@
 
 		var config = {
 			rootElement: $('body'),
-			dataSource: chordsWiki.chordsData
+			dataSource: chordsWiki.chordsData,
+			instrument: undefined
 		};
 
 		$.extend(config, params);
