@@ -1,16 +1,20 @@
 TODO
+- increase test coverage
+	- add test for else case in displayNotes
+	- add test for Wiki constructor
+	- fixture for custom data
+- refactor isSelectionValid to check both selection at once
+- add prefixes to css classes
 - Add JsDoc
+- add 'key_id' attribute to the key element while rendering the keyboard (createWhiteKey function)
 - improve keyboard rendering
 - manage communication between chartWiki and keyboard
 - add instrument selection ? (later)
 - manage external data in addition to default data (internal static json)
-	- change input parameter (url of data)
 	- choose between json / class instance object as data source
 	- add validation on input data
 - zip of dist
 - chordsData wrapper object with getter
-- increase test coverage
 - fix css: max-width, black_key reduce width
 - add variable to keyboard.scss to manage proportions in height / width
-- add 'key_id' attribute to the key element while rendering the keyboard (createWhiteKey function)
-- add prefixes to css classes
+
