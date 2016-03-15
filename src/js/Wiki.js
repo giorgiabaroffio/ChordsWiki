@@ -38,6 +38,8 @@
 
 		var chordSelect = null;
 		var categorySelect = null;
+		var eastContainer = null;
+		var westContainer = null;
 
 		var init = function() {
 			chordSelect = initializeSelect(chordSelect, CONST.LABEL.PLEASE_SELECT_CHORD);
@@ -54,7 +56,7 @@
 			if (typeof(config.instrument) === 'undefined'){
 				config.instrument = new chordsWiki.Keyboard();
 			}
-			$(CONST.SELECTOR.WEST_AREA).append(config.instrument.container);
+			westContainer.append(config.instrument.container);
 		};
 
 		/**
@@ -93,7 +95,7 @@
 		 */
 		var renderEast = function() {
 
-			var eastContainer = $('<div>');
+			eastContainer = $('<div>');
 			eastContainer.addClass(CONST.CSS.EAST_AREA);
 			var subtitleEast = $('<h2>');
 			subtitleEast.text(CONST.LABEL.SUBTITLE_EAST);
@@ -109,7 +111,7 @@
 		 */
 		var renderWest = function() {
 
-			var westContainer = $('<div>');
+			westContainer = $('<div>');
 			westContainer.addClass(CONST.CSS.WEST_AREA);
 			var subtitleWest = $('<h2>');
 			subtitleWest.text(CONST.LABEL.SUBTITLE_WEST);
