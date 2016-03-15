@@ -120,29 +120,65 @@ describe('chordsWiki.Wiki', function() {
 
 						});
 
-						it('when both <select> fields have a valid selection, Keyboard.displayNotes is invoked', function() {
+						describe('when <select> fields change values: ', function() {
 
-							var customContainer = $('<div>');
-							var keyboard = new chordsWiki.Keyboard();
-							spyOn(keyboard, 'displayNotes');
-							var wikiWithCustomInstrument = new chordsWiki.Wiki({
-								rootElement: customContainer,
-								dataSource: data,
-								instrument: keyboard
+							var chordSelectionWithCustomInstrument, categorySelectionWithCustomInstrument;
+							var keyboard;
+
+							beforeEach(function() {
+								var customContainer = $('<div>');
+								keyboard = new chordsWiki.Keyboard();
+								spyOn(keyboard, 'displayNotes');
+								spyOn(keyboard, 'cleanNotes');
+								var wikiWithCustomInstrument = new chordsWiki.Wiki({
+									rootElement: customContainer,
+									dataSource: data,
+									instrument: keyboard
+								});
+
+								var mainElementWithCustomInstrument = wikiWithCustomInstrument.container.children('main:first');
+								var eastDivElementWithCustomInstrument = mainElementWithCustomInstrument.children('div:nth-child(1)');
+
+								chordSelectionWithCustomInstrument = eastDivElementWithCustomInstrument.children('select')[0];
+								categorySelectionWithCustomInstrument = eastDivElementWithCustomInstrument.children('select')[1];
 							});
 
-							var mainElementWithCustomInstrument = wikiWithCustomInstrument.container.children('main:first');
-							var eastDivElementWithCustomInstrument = mainElementWithCustomInstrument.children('div:nth-child(1)');
+							it('if both <select> fields have a valid selection, Keyboard.displayNotes is invoked', function() {
 
-							var chordSelectionWithCustomInstrument = eastDivElementWithCustomInstrument.children('select')[0];
-							var categorySelectionWithCustomInstrument = eastDivElementWithCustomInstrument.children('select')[1];
+								$(chordSelectionWithCustomInstrument).val(1).change();
+								$(categorySelectionWithCustomInstrument).val(1).change();
 
-							$(chordSelectionWithCustomInstrument).val(1).change();
-							$(categorySelectionWithCustomInstrument).val(1).change();
+								expect(keyboard.displayNotes).toHaveBeenCalled();
 
-							expect(keyboard.displayNotes).toHaveBeenCalled();
+							});
+
+							it('if only the first <select> field has a valid selection, Keyboard.cleanNotes is invoked', function() {
+
+								$(categorySelectionWithCustomInstrument).val(0).change();
+								$(chordSelectionWithCustomInstrument).val(1).change();
 
 
+								expect(keyboard.cleanNotes).toHaveBeenCalled();
+
+							});
+
+							it('if only the second <select> field has a valid selection, Keyboard.cleanNotes is invoked', function() {
+
+								$(chordSelectionWithCustomInstrument).val(0).change();
+								$(categorySelectionWithCustomInstrument).val(1).change();
+
+								expect(keyboard.cleanNotes).toHaveBeenCalled();
+
+							});
+
+							it('if both the <select> fields have a not valid selection, Keyboard.cleanNotes is invoked', function() {
+
+								$(chordSelectionWithCustomInstrument).val(0).change();
+								$(categorySelectionWithCustomInstrument).val(0).change();
+
+								expect(keyboard.cleanNotes).toHaveBeenCalled();
+
+							});
 						});
 
 					});
