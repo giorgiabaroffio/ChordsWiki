@@ -27,22 +27,7 @@ describe('chordsWiki.Wiki', function() {
 		customRootElement = $('<div>');
 
 		/* jshint ignore:start */
-		customSourceData = {
-			"chord_types": [{
-				"id": 0,
-				"label": CONST.CHORDS_LABEL.C_CUSTOM
-			}, {
-				"id": 1,
-				"label": CONST.CHORDS_LABEL.D_CUSTOM
-			}],
-			"chord_categories": [{
-				"id": 0,
-				"label": CONST.CHORDS_LABEL.MAJOR_CUSTOM
-			}, {
-				"id": 1,
-				"label": CONST.CHORDS_LABEL.MINOR_CUSTOM
-			}]
-		};
+		customSourceData = getJSONFixture('customData.json');
 		/* jshint ignore:end */
 
 		customInstrument = new chordsWiki.Keyboard();

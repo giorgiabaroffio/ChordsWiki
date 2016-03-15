@@ -1,0 +1,22 @@
+{
+  "chord_types": [
+    {
+      "id": 0,
+      "label": "C_custom"
+    },
+    {
+      "id": 1,
+      "label": "D_custom"
+    }
+  ],
+  "chord_categories": [
+    {
+      "id": 0,
+      "label": "major_custom"
+    },
+    {
+      "id": 1,
+      "label": "minor_custom"
+    }
+  ]
+}
