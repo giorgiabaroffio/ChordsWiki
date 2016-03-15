@@ -36,7 +36,8 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var config = {
 			rootElement: $('body'),
-			dataSource: chordsWiki.chordsData
+			dataSource: chordsWiki.chordsData,
+			instrument: undefined
 		};
 
 		$.extend(config, params);
@@ -156,7 +157,7 @@ if (typeof(chordsWiki) === 'undefined') {
 		var attachEvents = function() {
 
 			chordSelect.change(function() {
-				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
+				if (isSelectionValid()) {
 					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
@@ -165,7 +166,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			});
 
 			categorySelect.change(function() {
-				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
+				if (isSelectionValid()) {
 					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
@@ -177,8 +178,8 @@ if (typeof(chordsWiki) === 'undefined') {
 		/**
 		 * Check if the selected option is valid (is not the placeholder)
 		 */
-		var isSelectionValid = function(select) {
-			return select.val() !== '';
+		var isSelectionValid = function() {
+			return (chordSelect.val() !== '' && categorySelect.val() !== '');
 		};
 
 		init();

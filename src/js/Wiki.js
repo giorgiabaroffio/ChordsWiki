@@ -147,7 +147,7 @@
 		var attachEvents = function() {
 
 			chordSelect.change(function() {
-				if (isSelectionValid(chordSelect) && isSelectionValid(categorySelect)) {
+				if (isSelectionValid()) {
 					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
@@ -156,7 +156,7 @@
 			});
 
 			categorySelect.change(function() {
-				if (isSelectionValid(categorySelect) && isSelectionValid(chordSelect)) {
+				if (isSelectionValid()) {
 					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
 				}
 				else{
@@ -168,8 +168,8 @@
 		/**
 		 * Check if the selected option is valid (is not the placeholder)
 		 */
-		var isSelectionValid = function(select) {
-			return select.val() !== '';
+		var isSelectionValid = function() {
+			return (chordSelect.val() !== '' && categorySelect.val() !== '');
 		};
 
 		init();

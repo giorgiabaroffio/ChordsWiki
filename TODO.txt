@@ -3,7 +3,6 @@ TODO
 	- add test for else case in displayNotes
 	- add test for Wiki constructor
 	- fixture for custom data
-- refactor isSelectionValid to check both selection at once
 - add prefixes to css classes
 - Add JsDoc
 - add 'key_id' attribute to the key element while rendering the keyboard (createWhiteKey function)

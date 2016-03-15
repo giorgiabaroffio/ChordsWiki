@@ -23,7 +23,8 @@
   background-color: black;
   border: 2px solid black;
   width: 94%;
-  height: 50%; }
+  height: 50%;
+  z-index: 1; }
 
 .clearfix:after {
   content: "";
