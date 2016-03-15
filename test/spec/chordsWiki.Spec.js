@@ -22,10 +22,7 @@ describe('chordsWiki.Wiki', function() {
 
 	beforeEach(function() {
 
-
-		wiki = new chordsWiki.Wiki({
-
-		});
+		wiki = new chordsWiki.Wiki({});
 
 		customRootElement = $('<div>');
 
@@ -255,7 +252,7 @@ describe('chordsWiki.Wiki', function() {
 				it('has a placeholder label with empty value as first option', function() {
 					expect($(customCategorySelection).children('option:first').val()).toEqual('');
 				});
-				it('has an element with label ' + CONST.CHORDS_LABEL.C_CUSTOM + ' as second option', function() {
+				it('has an element with label ' + CONST.CHORDS_LABEL.MAJOR_CUSTOM + ' as second option', function() {
 					expect($(customCategorySelection).children()[1].label).toEqual(CONST.CHORDS_LABEL.MAJOR_CUSTOM);
 				});
 			});
