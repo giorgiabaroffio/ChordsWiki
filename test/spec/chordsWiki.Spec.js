@@ -3,46 +3,57 @@ describe('chordsWiki.Wiki', function() {
 	'use strict';
 
 	var wiki, customWiki;
-	var uiContainer, mainElement, eastDivElement, westDivElement, chordSelection, categorySelection;
-	var data;
+	var mainElement, eastDivElement, westDivElement, chordSelection, categorySelection;
+	var customRootElement, customSourceData, customInstrument, customChordSelection, customCategorySelection, customWestArea;
 
 	var CONST = {
 		CSS: {
 			EAST_AREA: 'east_area',
 			WEST_AREA: 'west_area',
 			DETAILS_ROW: 'details_row'
+		},
+		CHORDS_LABEL: {
+			C_CUSTOM: 'C_custom',
+			D_CUSTOM: 'D_custom',
+			MAJOR_CUSTOM: 'major_custom',
+			MINOR_CUSTOM: 'minor_custom'
 		}
 	};
 
 	beforeEach(function() {
-		uiContainer = $('<div>');
+
 
 		wiki = new chordsWiki.Wiki({
-			rootElement: uiContainer
+
 		});
 
+		customRootElement = $('<div>');
+
 		/* jshint ignore:start */
-		data = {
+		customSourceData = {
 			"chord_types": [{
 				"id": 0,
-				"label": "C_custom"
+				"label": CONST.CHORDS_LABEL.C_CUSTOM
 			}, {
 				"id": 1,
-				"label": "D_custom"
+				"label": CONST.CHORDS_LABEL.D_CUSTOM
 			}],
 			"chord_categories": [{
 				"id": 0,
-				"label": "major_custom"
+				"label": CONST.CHORDS_LABEL.MAJOR_CUSTOM
 			}, {
 				"id": 1,
-				"label": "minor_custom"
+				"label": CONST.CHORDS_LABEL.MINOR_CUSTOM
 			}]
 		};
 		/* jshint ignore:end */
 
+		customInstrument = new chordsWiki.Keyboard();
+
 		customWiki = new chordsWiki.Wiki({
-			rootElement: uiContainer,
-			dataSource: data
+			rootElement: customRootElement,
+			dataSource: customSourceData,
+			instrument: customInstrument
 		});
 
 	});
@@ -132,7 +143,7 @@ describe('chordsWiki.Wiki', function() {
 								spyOn(keyboard, 'cleanNotes');
 								var wikiWithCustomInstrument = new chordsWiki.Wiki({
 									rootElement: customContainer,
-									dataSource: data,
+									dataSource: customSourceData,
 									instrument: keyboard
 								});
 
@@ -205,6 +216,57 @@ describe('chordsWiki.Wiki', function() {
 			});
 		});
 
+	});
+
+	describe('optionally accepts rootElement, dataSource and instrument as input parameters', function() {
+
+		it('if the parameter rootElement is undefined .container is appended to the body', function() {
+			expect($(wiki.container).parent().is('body')).toEqual(true);
+		});
+
+		it('if the parameter rootElement is defined .container is appended to it', function() {
+			expect($(customWiki.container).parent().is(customRootElement)).toEqual(true);
+		});
+
+		describe('if the parameter sourceData is defined the selection fields are populated with custom data: ', function() {
+
+			beforeEach(function() {
+				customChordSelection = customWiki.container.children('main:first').children('div:nth-child(1)').children('select')[0];
+				customCategorySelection = customWiki.container.children('main:first').children('div:nth-child(1)').children('select')[1];
+				customWestArea = customWiki.container.children('main:first').children('div:nth-child(2)');
+				console.log(customWiki);
+			});
+
+			describe('the first <select> element: ', function() {
+
+				it('has a placeholder label with empty value as first option', function() {
+					expect($(customChordSelection).children('option:first').val()).toEqual('');
+				});
+				it('has an element with label ' + CONST.CHORDS_LABEL.C_CUSTOM + ' as second option', function() {
+					expect($(customChordSelection).children()[1].label).toEqual(CONST.CHORDS_LABEL.C_CUSTOM);
+				});
+			});
+
+			describe('the second <select> element: ', function() {
+
+				it('has a placeholder label with empty value as first option', function() {
+					expect($(customCategorySelection).children('option:first').val()).toEqual('');
+				});
+				it('has an element with label ' + CONST.CHORDS_LABEL.C_CUSTOM + ' as second option', function() {
+					expect($(customCategorySelection).children()[1].label).toEqual(CONST.CHORDS_LABEL.MAJOR_CUSTOM);
+				});
+			});
+
+			it('if the parameter instrument is defined its container is appended to the west area', function() {
+				expect($($(customWestArea).find('> div')[0]).is(customInstrument.container)).toEqual(true);
+			});
+
+			it('if the parameter instrument is defined its container is appended to the west area', function() {
+				expect($($(customWestArea).find('> div')[0]).is(customInstrument.container)).toEqual(true);
+			});
+
+
+		});
 	});
 
 });

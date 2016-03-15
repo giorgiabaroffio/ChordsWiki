@@ -1,7 +1,5 @@
 TODO
 - increase test coverage
-	- add test for else case in displayNotes
-	- add test for Wiki constructor
 	- fixture for custom data
 - add prefixes to css classes
 - Add JsDoc
@@ -16,4 +14,5 @@ TODO
 - chordsData wrapper object with getter
 - fix css: max-width, black_key reduce width
 - add variable to keyboard.scss to manage proportions in height / width
+- add validation on sourceData, instrument (public: displayNotes, cleanNotes, container)
 
