@@ -220,6 +220,12 @@ describe('chordsWiki.Wiki', function() {
 
 	describe('optionally accepts rootElement, dataSource and instrument as input parameters', function() {
 
+		beforeEach(function() {
+			customChordSelection = customWiki.container.children('main:first').children('div:nth-child(1)').children('select')[0];
+			customCategorySelection = customWiki.container.children('main:first').children('div:nth-child(1)').children('select')[1];
+			customWestArea = customWiki.container.children('main:first').children('div:nth-child(2)');
+		});
+
 		it('if the parameter rootElement is undefined .container is appended to the body', function() {
 			expect($(wiki.container).parent().is('body')).toEqual(true);
 		});
@@ -228,14 +234,11 @@ describe('chordsWiki.Wiki', function() {
 			expect($(customWiki.container).parent().is(customRootElement)).toEqual(true);
 		});
 
-		describe('if the parameter sourceData is defined the selection fields are populated with custom data: ', function() {
+		it('if the parameter instrument is defined its container is appended to the west area', function() {
+			expect($($(customWestArea).find('> div')[0]).is(customInstrument.container)).toEqual(true);
+		});
 
-			beforeEach(function() {
-				customChordSelection = customWiki.container.children('main:first').children('div:nth-child(1)').children('select')[0];
-				customCategorySelection = customWiki.container.children('main:first').children('div:nth-child(1)').children('select')[1];
-				customWestArea = customWiki.container.children('main:first').children('div:nth-child(2)');
-				console.log(customWiki);
-			});
+		describe('if the parameter sourceData is defined the selection fields are populated with custom data: ', function() {
 
 			describe('the first <select> element: ', function() {
 
@@ -257,16 +260,9 @@ describe('chordsWiki.Wiki', function() {
 				});
 			});
 
-			it('if the parameter instrument is defined its container is appended to the west area', function() {
-				expect($($(customWestArea).find('> div')[0]).is(customInstrument.container)).toEqual(true);
-			});
-
-			it('if the parameter instrument is defined its container is appended to the west area', function() {
-				expect($($(customWestArea).find('> div')[0]).is(customInstrument.container)).toEqual(true);
-			});
-
 
 		});
+
 	});
 
 });
