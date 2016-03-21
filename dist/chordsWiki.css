@@ -33,4 +33,7 @@
   height: 50%;
   z-index: 1; }
 
+.chordsWiki_pressed_key {
+  background-color: red; }
+
 /*# sourceMappingURL=chordsWiki.css.map */

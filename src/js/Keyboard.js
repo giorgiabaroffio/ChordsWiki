@@ -13,14 +13,19 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 			CSS: {
 				KEYBOARD: 'chordsWiki_keyboard',
 				WHITE_KEY: 'chordsWiki_key',
-				BLACK_KEY: 'chordsWiki_black_key'
+				BLACK_KEY: 'chordsWiki_black_key',
+				PRESSED_KEY: 'chordsWiki_pressed_key'
 			},
 			LABEL: {
 				NOTES: 'Notes',
 				KEYS: 'Keys'
 			},
 			SELECTOR: {
-
+				WHITE_KEY: '.chordsWiki_key',
+				BLACK_KEY: '.chordsWiki_black_key'
+			},
+			ATTRIBUTE: {
+				KEY: 'data-key'
 			}
 		};
 
@@ -152,12 +157,14 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		/**
 		 * Create the key object
 		 */
-		var createWhiteKey = function(addBlackKey) {
+		var createWhiteKey = function(addBlackKey, whiteKeyId, blackKeyId) {
 			var whiteKey = $('<div>');
 			whiteKey.addClass(CONST.CSS.WHITE_KEY);
+			whiteKey.attr(CONST.ATTRIBUTE.KEY, whiteKeyId);
 			if (addBlackKey === true) {
 				var blackKey = $('<div>');
 				blackKey.addClass(CONST.CSS.BLACK_KEY);
+				blackKey.attr(CONST.ATTRIBUTE.KEY, blackKeyId);
 				whiteKey.append(blackKey);
 			}
 			return whiteKey;
@@ -170,13 +177,13 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 			var keyboardContainer = $('<div>');
 			keyboardContainer.addClass(CONST.CSS.KEYBOARD);
 
-			keyboardContainer.append(createWhiteKey(true));
-			keyboardContainer.append(createWhiteKey(true));
-			keyboardContainer.append(createWhiteKey(false));
-			keyboardContainer.append(createWhiteKey(true));
-			keyboardContainer.append(createWhiteKey(true));
-			keyboardContainer.append(createWhiteKey(true));
-			keyboardContainer.append(createWhiteKey(false));
+			keyboardContainer.append(createWhiteKey(true,0,1));
+			keyboardContainer.append(createWhiteKey(true,2,3));
+			keyboardContainer.append(createWhiteKey(false,4));
+			keyboardContainer.append(createWhiteKey(true,5,6));
+			keyboardContainer.append(createWhiteKey(true,7,8));
+			keyboardContainer.append(createWhiteKey(true,9,10));
+			keyboardContainer.append(createWhiteKey(false,11));
 			
 			return keyboardContainer;
 
@@ -226,6 +233,24 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		/**
 		 * Display notes on keyboard
 		 */
+		var colorKeys = function(keys){
+			for(var k in keys){
+				$( '['+CONST.ATTRIBUTE.KEY+'= "'+keys[k]+'"]').addClass(CONST.CSS.PRESSED_KEY);
+			}
+		};
+
+		/**
+		 * Clean notes on keyboard
+		 */
+		var cleanKeys = function(){
+			$(CONST.SELECTOR.BLACK_KEY).removeClass(CONST.CSS.PRESSED_KEY);
+			$(CONST.SELECTOR.WHITE_KEY).removeClass(CONST.CSS.PRESSED_KEY);
+		};
+
+
+		/**
+		 * Display notes details
+		 */
 		this.displayNotes = function(chord, category) {
 			var notes = notesLookup(chord, category);
 			var notesLabels = getNotesLabelByIds(notes);
@@ -235,17 +260,18 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 				self.container.append(notesTextRow);
 			}
 			notesTextRow.empty().text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + keys.join());
-
+			cleanKeys();
+			colorKeys(keys);
 		};
 
 		/**
-		 * Clean notes on keyboard
+		 * Clean notes details
 		 */
 		this.cleanNotes = function() {
 			if (notesTextRow !== null) {
 				notesTextRow.empty();
 			}
-
+			cleanKeys();
 		};
 
 		init();
