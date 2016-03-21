@@ -1,12 +1,19 @@
-.east_area {
+.chordsWiki_keyboard:after {
+  content: "";
+  visibility: hidden;
+  display: block;
+  height: 0;
+  clear: both; }
+
+.chordsWiki_east_area {
   float: left;
   width: 50%; }
 
-.west_area {
+.chordsWiki_west_area {
   float: right;
   width: 50%; }
 
-.key {
+.chordsWiki_key {
   float: left;
   position: relative;
   width: calc(100% / 7);
@@ -14,10 +21,10 @@
   height: 150px;
   box-sizing: border-box; }
 
-.key:not(:first-child) {
+.chordsWiki_key:not(:first-child) {
   border-left: none; }
 
-.black_key {
+.chordsWiki_black_key {
   position: absolute;
   left: 53%;
   background-color: black;
@@ -25,12 +32,5 @@
   width: 94%;
   height: 50%;
   z-index: 1; }
-
-.clearfix:after {
-  content: "";
-  visibility: hidden;
-  display: block;
-  height: 0;
-  clear: both; }
 
 /*# sourceMappingURL=chordsWiki.css.map */

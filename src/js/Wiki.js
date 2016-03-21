@@ -5,9 +5,9 @@
 
 		var CONST = {
 			CSS: {
-				EAST_AREA: 'east_area',
-				WEST_AREA: 'west_area',
-				DETAILS_ROW: 'details_row'
+				EAST_AREA: 'chordsWiki_east_area',
+				WEST_AREA: 'chordsWiki_west_area',
+				DETAILS_ROW: 'chordsWiki_details_row'
 			},
 			LABEL: {
 				SUBTITLE_EAST: 'Chord selection',
@@ -17,9 +17,9 @@
 				DETAILS_HEADING: 'Notes: '
 			},
 			SELECTOR: {
-				EAST_AREA: '.east_area',
-				WEST_AREA: '.west_area',
-				DETAILS_ROW: '.details_row'
+				EAST_AREA: '.chordsWiki_east_area',
+				WEST_AREA: '.chordsWiki_west_area',
+				DETAILS_ROW: '.chordsWiki_details_row'
 			},
 			DATA_URL: 'src/data/chordsData.json'
 		};

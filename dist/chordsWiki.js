@@ -15,9 +15,9 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var CONST = {
 			CSS: {
-				EAST_AREA: 'east_area',
-				WEST_AREA: 'west_area',
-				DETAILS_ROW: 'details_row'
+				EAST_AREA: 'chordsWiki_east_area',
+				WEST_AREA: 'chordsWiki_west_area',
+				DETAILS_ROW: 'chordsWiki_details_row'
 			},
 			LABEL: {
 				SUBTITLE_EAST: 'Chord selection',
@@ -27,9 +27,9 @@ if (typeof(chordsWiki) === 'undefined') {
 				DETAILS_HEADING: 'Notes: '
 			},
 			SELECTOR: {
-				EAST_AREA: '.east_area',
-				WEST_AREA: '.west_area',
-				DETAILS_ROW: '.details_row'
+				EAST_AREA: '.chordsWiki_east_area',
+				WEST_AREA: '.chordsWiki_west_area',
+				DETAILS_ROW: '.chordsWiki_details_row'
 			},
 			DATA_URL: 'src/data/chordsData.json'
 		};
@@ -230,9 +230,9 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		var CONST = {
 			CSS: {
-				CLEARFIX: 'clearfix',
-				WHITE_KEY: 'key',
-				BLACK_KEY: 'black_key'
+				KEYBOARD: 'chordsWiki_keyboard',
+				WHITE_KEY: 'chordsWiki_key',
+				BLACK_KEY: 'chordsWiki_black_key'
 			},
 			LABEL: {
 				NOTES: 'Notes',
@@ -387,7 +387,7 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		 */
 		var render = function() {
 			var keyboardContainer = $('<div>');
-			keyboardContainer.addClass(CONST.CSS.CLEARFIX);
+			keyboardContainer.addClass(CONST.CSS.KEYBOARD);
 
 			keyboardContainer.append(createWhiteKey(true));
 			keyboardContainer.append(createWhiteKey(true));

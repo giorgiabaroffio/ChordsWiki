@@ -11,9 +11,9 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		var CONST = {
 			CSS: {
-				CLEARFIX: 'clearfix',
-				WHITE_KEY: 'key',
-				BLACK_KEY: 'black_key'
+				KEYBOARD: 'chordsWiki_keyboard',
+				WHITE_KEY: 'chordsWiki_key',
+				BLACK_KEY: 'chordsWiki_black_key'
 			},
 			LABEL: {
 				NOTES: 'Notes',
@@ -168,7 +168,7 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		 */
 		var render = function() {
 			var keyboardContainer = $('<div>');
-			keyboardContainer.addClass(CONST.CSS.CLEARFIX);
+			keyboardContainer.addClass(CONST.CSS.KEYBOARD);
 
 			keyboardContainer.append(createWhiteKey(true));
 			keyboardContainer.append(createWhiteKey(true));
