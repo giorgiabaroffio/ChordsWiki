@@ -10,7 +10,13 @@ if (typeof(chordsWiki) === 'undefined') {
 }
 (function() {
 	'use strict';
-
+	/**
+	 * Constructor of the chords wiki widget
+	 * @param {jquery} options.rootElement
+	 * @param {Object} options.dataSource
+	 * @param {Object} options.instrument
+	 * @constructor
+	 */
 	chordsWiki.Wiki = function(params) {
 
 		var CONST = {
@@ -62,6 +68,9 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		};
 
+		/**
+		 * Initialize the instrument (either a custom one or the default one)
+		 */
 		var initInstrument = function() {
 			if (typeof(config.instrument) === 'undefined'){
 				config.instrument = new chordsWiki.Keyboard();
@@ -71,6 +80,9 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		/**
 		 * Initialize select field
+		 * @param {Object} select - The selection field object.
+		 * @param {string} placeholder - The placeholder for the selection field.
+		 * @returns {Object}
 		 */
 		var initializeSelect = function(select, placeholder) {
 
@@ -142,6 +154,8 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		/**
 		 * Populate select field given the data array and the select object
+		 * @param {Object} dataArray - the object containing data to be parsed.
+		 * @param {Object} selectObj - the selection field to be populated.
 		 */
 		var populateSelect = function(dataArray, selectObj) {
 			for (var i = 0; i < dataArray.length; i++) {
@@ -225,7 +239,10 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 (function() {
 	'use strict';
-
+	/**
+	 * Constructor of the Keyboard instrument
+	 * @constructor
+	 */
 	chordsWiki.Keyboard = function(params) {
 
 		var CONST = {
@@ -375,6 +392,10 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Create the key object
+		 * @param {boolean} addBlackKey - Flag to define the type of keyboard key (with black key following or not).
+		 * @param {string} whiteKeyId - The key attribute unequivocally identifying the white key
+		 * @param {string} blackKeyId - The key attribute unequivocally identifying the black key
+		 * @returns {Object} whiteKey - The keyboard key html object generated
 		 */
 		var createWhiteKey = function(addBlackKey, whiteKeyId, blackKeyId) {
 			var whiteKey = $('<div>');
@@ -410,6 +431,9 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Retrieve the set of notes given the chord and the category
+		 * @param {string} chord - The id of the chord selected
+		 * @param {string} category - The id of the chord category selected
+		 * @returns {boolean|string[]}
 		 */
 		var notesLookup = function(chord, category) {
 			var chordInstances = instrumentChordsData.chord_instances;
@@ -423,6 +447,8 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Get notes labels by ids
+		 * @param {string[]} noteIds - The array containing the list of notes ids
+		 * @returns {string[]}
 		 */
 		var getNotesLabelByIds = function(noteIds) {
 			var notes = instrumentChordsData.notes;
@@ -436,7 +462,9 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		};
 
 		/**
-		 * Get keys given the notes array
+		 * Get keys ids given the notes array
+		 * @param {string[]} noteIds - The array containing the list of notes ids
+		 * @returns {string[]}
 		 */
 		var getNotesKeysByIds = function(noteIds) {
 			var notes = instrumentChordsData.notes;
@@ -451,6 +479,7 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Display notes on keyboard
+		 * @param {string[]} keys - The array containing the list of keys ids
 		 */
 		var colorKeys = function(keys){
 			for(var k in keys){
@@ -469,6 +498,8 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Display notes details
+		 * @param {string} chord - The id of the chord selected
+		 * @param {string} category - The id of the chord category selected
 		 */
 		this.displayNotes = function(chord, category) {
 			var notes = notesLookup(chord, category);

@@ -1,6 +1,12 @@
 (function() {
 	'use strict';
-
+	/**
+	 * Constructor of the chords wiki widget
+	 * @param {jquery} options.rootElement
+	 * @param {Object} options.dataSource
+	 * @param {Object} options.instrument
+	 * @constructor
+	 */
 	chordsWiki.Wiki = function(params) {
 
 		var CONST = {
@@ -52,6 +58,9 @@
 
 		};
 
+		/**
+		 * Initialize the instrument (either a custom one or the default one)
+		 */
 		var initInstrument = function() {
 			if (typeof(config.instrument) === 'undefined'){
 				config.instrument = new chordsWiki.Keyboard();
@@ -61,6 +70,9 @@
 
 		/**
 		 * Initialize select field
+		 * @param {Object} select - The selection field object.
+		 * @param {string} placeholder - The placeholder for the selection field.
+		 * @returns {Object}
 		 */
 		var initializeSelect = function(select, placeholder) {
 
@@ -132,6 +144,8 @@
 
 		/**
 		 * Populate select field given the data array and the select object
+		 * @param {Object} dataArray - the object containing data to be parsed.
+		 * @param {Object} selectObj - the selection field to be populated.
 		 */
 		var populateSelect = function(dataArray, selectObj) {
 			for (var i = 0; i < dataArray.length; i++) {

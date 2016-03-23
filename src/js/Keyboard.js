@@ -6,7 +6,10 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 (function() {
 	'use strict';
-
+	/**
+	 * Constructor of the Keyboard instrument
+	 * @constructor
+	 */
 	chordsWiki.Keyboard = function(params) {
 
 		var CONST = {
@@ -156,6 +159,10 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Create the key object
+		 * @param {boolean} addBlackKey - Flag to define the type of keyboard key (with black key following or not).
+		 * @param {string} whiteKeyId - The key attribute unequivocally identifying the white key
+		 * @param {string} blackKeyId - The key attribute unequivocally identifying the black key
+		 * @returns {Object} whiteKey - The keyboard key html object generated
 		 */
 		var createWhiteKey = function(addBlackKey, whiteKeyId, blackKeyId) {
 			var whiteKey = $('<div>');
@@ -191,6 +198,9 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Retrieve the set of notes given the chord and the category
+		 * @param {string} chord - The id of the chord selected
+		 * @param {string} category - The id of the chord category selected
+		 * @returns {boolean|string[]}
 		 */
 		var notesLookup = function(chord, category) {
 			var chordInstances = instrumentChordsData.chord_instances;
@@ -204,6 +214,8 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Get notes labels by ids
+		 * @param {string[]} noteIds - The array containing the list of notes ids
+		 * @returns {string[]}
 		 */
 		var getNotesLabelByIds = function(noteIds) {
 			var notes = instrumentChordsData.notes;
@@ -217,7 +229,9 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		};
 
 		/**
-		 * Get keys given the notes array
+		 * Get keys ids given the notes array
+		 * @param {string[]} noteIds - The array containing the list of notes ids
+		 * @returns {string[]}
 		 */
 		var getNotesKeysByIds = function(noteIds) {
 			var notes = instrumentChordsData.notes;
@@ -232,6 +246,7 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Display notes on keyboard
+		 * @param {string[]} keys - The array containing the list of keys ids
 		 */
 		var colorKeys = function(keys){
 			for(var k in keys){
@@ -250,6 +265,8 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 
 		/**
 		 * Display notes details
+		 * @param {string} chord - The id of the chord selected
+		 * @param {string} category - The id of the chord category selected
 		 */
 		this.displayNotes = function(chord, category) {
 			var notes = notesLookup(chord, category);
