@@ -8,9 +8,9 @@ describe('chordsWiki.Wiki', function() {
 
 	var CONST = {
 		CSS: {
-			EAST_AREA: 'east_area',
-			WEST_AREA: 'west_area',
-			DETAILS_ROW: 'details_row'
+			EAST_AREA: 'chordsWiki_east_area',
+			WEST_AREA: 'chordsWiki_west_area',
+			DETAILS_ROW: 'chordsWiki_details_row'
 		},
 		CHORDS_LABEL: {
 			C_CUSTOM: 'C_custom',
