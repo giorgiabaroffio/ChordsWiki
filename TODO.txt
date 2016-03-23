@@ -10,3 +10,4 @@ TODO
 - fix css: max-width, black_key reduce width
 - add variable to keyboard.scss to manage proportions in height / width
 - add validation on sourceData, instrument (public: displayNotes, cleanNotes, container)
+- integrate local storage to store sequences
