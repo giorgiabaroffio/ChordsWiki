@@ -1,9 +1,3 @@
-if (typeof(chordsWiki.Keyboard) === 'undefined') {
-	/* jshint ignore:start */
-	chordsWiki.Keyboard = {};
-	/* jshint ignore:end */
-}
-
 (function() {
 	'use strict';
 	/**
@@ -163,7 +157,7 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		 * @param {boolean} addBlackKey - Flag to define the type of keyboard key (with black key following or not).
 		 * @param {string} whiteKeyId - The key attribute unequivocally identifying the white key
 		 * @param {string} blackKeyId - The key attribute unequivocally identifying the black key
-		 * @returns {Object} whiteKey - The keyboard key html object generated
+		 * @returns {jQuery} whiteKey - The keyboard key jQuery object generated
 		 */
 		var createWhiteKey = function(addBlackKey, whiteKeyId, blackKeyId) {
 			var whiteKey = $('<div>');
