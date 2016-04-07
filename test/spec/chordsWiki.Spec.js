@@ -121,8 +121,8 @@ describe('chordsWiki.Wiki', function() {
 							beforeEach(function() {
 								var customContainer = $('<div>');
 								keyboard = new chordsWiki.Keyboard();
-								spyOn(keyboard, 'displayNotes');
-								spyOn(keyboard, 'cleanNotes');
+								spyOn(keyboard, 'displayChordDetails');
+								spyOn(keyboard, 'cleanChordDetails');
 								var wikiWithCustomInstrument = new chordsWiki.Wiki({
 									rootElement: customContainer,
 									dataSource: customSourceData,
@@ -136,40 +136,40 @@ describe('chordsWiki.Wiki', function() {
 								categorySelectionWithCustomInstrument = eastDivElementWithCustomInstrument.children('select')[1];
 							});
 
-							it('if both <select> fields have a valid selection, Keyboard.displayNotes is invoked', function() {
+							it('if both <select> fields have a valid selection, Keyboard.displayChordDetails is invoked', function() {
 
 								$(chordSelectionWithCustomInstrument).val(1).change();
 								$(categorySelectionWithCustomInstrument).val(1).change();
 
-								expect(keyboard.displayNotes).toHaveBeenCalled();
+								expect(keyboard.displayChordDetails).toHaveBeenCalled();
 
 							});
 
-							it('if only the first <select> field has a valid selection, Keyboard.cleanNotes is invoked', function() {
+							it('if only the first <select> field has a valid selection, Keyboard.cleanChordDetails is invoked', function() {
 
 								$(categorySelectionWithCustomInstrument).val(0).change();
 								$(chordSelectionWithCustomInstrument).val(1).change();
 
 
-								expect(keyboard.cleanNotes).toHaveBeenCalled();
+								expect(keyboard.cleanChordDetails).toHaveBeenCalled();
 
 							});
 
-							it('if only the second <select> field has a valid selection, Keyboard.cleanNotes is invoked', function() {
+							it('if only the second <select> field has a valid selection, Keyboard.cleanChordDetails is invoked', function() {
 
 								$(chordSelectionWithCustomInstrument).val(0).change();
 								$(categorySelectionWithCustomInstrument).val(1).change();
 
-								expect(keyboard.cleanNotes).toHaveBeenCalled();
+								expect(keyboard.cleanChordDetails).toHaveBeenCalled();
 
 							});
 
-							it('if both the <select> fields have a not valid selection, Keyboard.cleanNotes is invoked', function() {
+							it('if both the <select> fields have a not valid selection, Keyboard.cleanChordDetails is invoked', function() {
 
 								$(chordSelectionWithCustomInstrument).val(0).change();
 								$(categorySelectionWithCustomInstrument).val(0).change();
 
-								expect(keyboard.cleanNotes).toHaveBeenCalled();
+								expect(keyboard.cleanChordDetails).toHaveBeenCalled();
 
 							});
 						});

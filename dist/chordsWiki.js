@@ -175,26 +175,26 @@ if (typeof(chordsWiki) === 'undefined') {
 			chordSelect.change(function() {
 				if (isSelectionValid()) {
 					try {
-						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+						config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
 					}catch(err){
 						console.log(err);
 					}
 				}
 				else{
-					config.instrument.cleanNotes();
+					config.instrument.cleanChordDetails();
 				}
 			});
 
 			categorySelect.change(function() {
 				if (isSelectionValid()) {
 					try {
-						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+						config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
 					}catch(err){
 						console.log(err);
 					}
 				}
 				else{
-					config.instrument.cleanNotes();
+					config.instrument.cleanChordDetails();
 				}
 			});
 		};
@@ -471,10 +471,33 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		};
 
 		/**
-		 * Display notes on keyboard
-		 * @param {string[]} keys - The array containing the list of keys ids
+		 * Display textual details about the selected chord
+		 * @param {string[]} notes - The array containing the list of notes ids
 		 */
-		var colorKeys = function(keys){
+		var displayTextualDetails = function(notes){
+			var notesLabels = getNotesProperty(notes, 'label');
+			if (notesTextRow === null) {
+				notesTextRow = $('<span>');
+				self.container.append(notesTextRow);
+			}
+			notesTextRow.text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + notesLabels.join());
+		};
+
+		/**
+		 * Clean chord textual details
+		 */
+		var cleanTextualDetails = function(){
+			if (notesTextRow !== null) {
+				notesTextRow.empty();
+			}
+		};
+
+		/**
+		 * Display notes on keyboard
+		 * @param {string[]} notes - The array containing the list of notes ids
+		 */
+		var colorKeys = function(notes){
+			var keys = getNotesProperty(notes, 'key');
 			for(var k in keys){
 				self.container.find( '['+CONST.ATTRIBUTE.KEY+'= "'+keys[k]+'"]').addClass(CONST.CSS.PRESSED_KEY);
 			}
@@ -490,38 +513,32 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 
 
 		/**
-		 * Display notes details
+		 * Display chord details
 		 * @param {string} chord - The id of the chord selected
 		 * @param {string} category - The id of the chord category selected
 		 */
-		this.displayNotes = function(chord, category) {
-			self.cleanNotes();
+		this.displayChordDetails = function(chord, category) {
+			//clean notes details
+			self.cleanChordDetails();
+
+			//retrieve chord details
 			var notes = notesLookup(chord, category);
 			if(notes.length===0){
 				throw CONST.ERROR.CHORD_NOT_FOUND;
 			}
 
-			var notesLabels = getNotesProperty(notes, 'label');
-			var keys = getNotesProperty(notes, 'key');
-
 			//display chord textual details (notes, keys)
-			if (notesTextRow === null) {
-				notesTextRow = $('<span>');
-				self.container.append(notesTextRow);
-			}
-			notesTextRow.text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + keys.join());
+			displayTextualDetails(notes);
 
 			//display notes on keyboard, coloring keys
-			colorKeys(keys);
+			colorKeys(notes);
 		};
 
 		/**
-		 * Clean notes details
+		 * Clean chord details
 		 */
-		this.cleanNotes = function() {
-			if (notesTextRow !== null) {
-				notesTextRow.empty();
-			}
+		this.cleanChordDetails = function() {
+			cleanTextualDetails();
 			cleanKeys();
 		};
 

@@ -115,9 +115,9 @@ describe('chordsWiki.Keyboard', function() {
 
 	});
 
-	describe('.displayNotes when invoked', function() {
+	describe('.displayChordDetails when invoked', function() {
 		beforeEach(function() {
-			keyboardObject.displayNotes(0,0);
+			keyboardObject.displayChordDetails(0,0);
 			keyboardContainer = keyboardObject.container.find('> div')[0];
 			keyboardInstrument = $(keyboardContainer).find('> div')[0];
 		});

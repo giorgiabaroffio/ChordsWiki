@@ -165,26 +165,26 @@
 			chordSelect.change(function() {
 				if (isSelectionValid()) {
 					try {
-						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+						config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
 					}catch(err){
 						console.log(err);
 					}
 				}
 				else{
-					config.instrument.cleanNotes();
+					config.instrument.cleanChordDetails();
 				}
 			});
 
 			categorySelect.change(function() {
 				if (isSelectionValid()) {
 					try {
-						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+						config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
 					}catch(err){
 						console.log(err);
 					}
 				}
 				else{
-					config.instrument.cleanNotes();
+					config.instrument.cleanChordDetails();
 				}
 			});
 		};
