@@ -1,6 +1,5 @@
 TODO
 - Keyboard refactoring:
-	- getNotesKeysByIds/getNotesLabelByIds --> generic getNotesProperty()
 	- notesLookup should throw exception if not valid input (manage exception in displayNotes)
 - test Keyboard.js
 - improve keyboard rendering

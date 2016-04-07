@@ -444,6 +444,22 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		};
 
 		/**
+		 * Get notes property given the array of notes ids and the name of the property
+		 * @param {string[]} noteIds - The array containing the list of notes ids
+		 * @returns {string[]}
+		 */
+		var getNotesProperty = function(noteIds, prop) {
+			var notes = instrumentChordsData.notes;
+			var properties = [];
+			for (var n in notes) {
+				if (noteIds.indexOf(notes[n].id) > -1) {
+					properties.push(notes[n][prop]);
+				}
+			}
+			return properties;
+		};
+
+		/**
 		 * Get notes labels by ids
 		 * @param {string[]} noteIds - The array containing the list of notes ids
 		 * @returns {string[]}
@@ -503,8 +519,8 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 			self.cleanNotes();
 			var notes = notesLookup(chord, category);
 
-			var notesLabels = getNotesLabelByIds(notes);
-			var keys = getNotesKeysByIds(notes);
+			var notesLabels = getNotesProperty(notes, 'label');
+			var keys = getNotesProperty(notes, 'key');
 
 			//display chord textual details (notes, keys)
 			if (notesTextRow === null) {
