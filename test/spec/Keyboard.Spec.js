@@ -2,7 +2,7 @@ describe('chordsWiki.Keyboard', function() {
 
 	'use strict';
 
-	var keyboardObject, keyboardContainer, keyboardInstrument, notesTextRow;
+	var keyboardObject, keyboardContainer, keyboardInstrument;
 
 	var CONST = {
 		CSS: {
@@ -67,6 +67,13 @@ describe('chordsWiki.Keyboard', function() {
 								it('has css class ' + CONST.CSS.WHITE_KEY, function() {
 									expect($(keyboardInstrument).find('> div')).toHaveClass(CONST.CSS.WHITE_KEY);
 								});
+								it('has a "data-key" attribute', function() {
+									expect($($(keyboardInstrument).find('> div')[0]).data('key')).toBeDefined();
+									expect($($(keyboardInstrument).find('> div')[1]).data('key')).toBeDefined();
+									expect($($(keyboardInstrument).find('> div')[3]).data('key')).toBeDefined();
+									expect($($(keyboardInstrument).find('> div')[4]).data('key')).toBeDefined();
+									expect($($(keyboardInstrument).find('> div')[5]).data('key')).toBeDefined();
+								});
 							});
 							it('the third and seventh <div> children elements do not contain any other <div> element (no black key)', function() {
 								expect($($(keyboardInstrument).find('> div')[2]).find('> div').length).toEqual(0);
@@ -117,8 +124,8 @@ describe('chordsWiki.Keyboard', function() {
 		it('appends a <span> element to the container if it does not exist to display chord details', function() {
 			expect(keyboardObject.container.find('> span').length).toEqual(1);
 		});
-		it('colors the keys composing the selected chord', function() {
-			expect(keyboardObject.container.find('> span').length).toEqual(1);
+		it('colors the keys composing the selected chord, assigning the css class ' + CONST.CSS.PRESSED_KEY, function() {
+			expect($(keyboardInstrument).find('> div')[0]).toHaveClass(CONST.CSS.PRESSED_KEY);
 		});
 	});
 });

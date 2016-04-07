@@ -1,8 +1,8 @@
-/* jshint camelcase: false*/
+/* istanbul ignore if */
 if (typeof(jQuery) === 'undefined') {
 	throw('Unable to find jQuery');
 }
-
+/* istanbul ignore else */
 if (typeof(chordsWiki) === 'undefined') {
 	/* jshint ignore:start */
 	var chordsWiki = {};
@@ -231,12 +231,6 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 	};
 
 }
-if (typeof(chordsWiki.Keyboard) === 'undefined') {
-	/* jshint ignore:start */
-	chordsWiki.Keyboard = {};
-	/* jshint ignore:end */
-}
-
 (function() {
 	'use strict';
 	/**
@@ -250,7 +244,8 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 				KEYBOARD: 'chordsWiki_keyboard',
 				WHITE_KEY: 'chordsWiki_key',
 				BLACK_KEY: 'chordsWiki_black_key',
-				PRESSED_KEY: 'chordsWiki_pressed_key'
+				PRESSED_KEY: 'chordsWiki_pressed_key',
+				KEYBOARD_CONTAINER: 'chordsWiki_keyboard_container'
 			},
 			LABEL: {
 				NOTES: 'Notes',
@@ -395,7 +390,7 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		 * @param {boolean} addBlackKey - Flag to define the type of keyboard key (with black key following or not).
 		 * @param {string} whiteKeyId - The key attribute unequivocally identifying the white key
 		 * @param {string} blackKeyId - The key attribute unequivocally identifying the black key
-		 * @returns {Object} whiteKey - The keyboard key html object generated
+		 * @returns {jQuery} whiteKey - The keyboard key jQuery object generated
 		 */
 		var createWhiteKey = function(addBlackKey, whiteKeyId, blackKeyId) {
 			var whiteKey = $('<div>');
@@ -415,16 +410,19 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		 */
 		var render = function() {
 			var keyboardContainer = $('<div>');
-			keyboardContainer.addClass(CONST.CSS.KEYBOARD);
+			keyboardContainer.addClass(CONST.CSS.KEYBOARD_CONTAINER);
+			var keyboardInstrument = $('<div>');
+			keyboardInstrument.addClass(CONST.CSS.KEYBOARD);
 
-			keyboardContainer.append(createWhiteKey(true,0,1));
-			keyboardContainer.append(createWhiteKey(true,2,3));
-			keyboardContainer.append(createWhiteKey(false,4));
-			keyboardContainer.append(createWhiteKey(true,5,6));
-			keyboardContainer.append(createWhiteKey(true,7,8));
-			keyboardContainer.append(createWhiteKey(true,9,10));
-			keyboardContainer.append(createWhiteKey(false,11));
-			
+			keyboardInstrument.append(createWhiteKey(true,0,1));
+			keyboardInstrument.append(createWhiteKey(true,2,3));
+			keyboardInstrument.append(createWhiteKey(false,4));
+			keyboardInstrument.append(createWhiteKey(true,5,6));
+			keyboardInstrument.append(createWhiteKey(true,7,8));
+			keyboardInstrument.append(createWhiteKey(true,9,10));
+			keyboardInstrument.append(createWhiteKey(false,11));
+
+			keyboardContainer.append(keyboardInstrument);
 			return keyboardContainer;
 
 		};
@@ -483,7 +481,7 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		 */
 		var colorKeys = function(keys){
 			for(var k in keys){
-				$( '['+CONST.ATTRIBUTE.KEY+'= "'+keys[k]+'"]').addClass(CONST.CSS.PRESSED_KEY);
+				self.container.find( '['+CONST.ATTRIBUTE.KEY+'= "'+keys[k]+'"]').addClass(CONST.CSS.PRESSED_KEY);
 			}
 		};
 
@@ -502,15 +500,20 @@ if (typeof(chordsWiki.Keyboard) === 'undefined') {
 		 * @param {string} category - The id of the chord category selected
 		 */
 		this.displayNotes = function(chord, category) {
+			self.cleanNotes();
 			var notes = notesLookup(chord, category);
+
 			var notesLabels = getNotesLabelByIds(notes);
 			var keys = getNotesKeysByIds(notes);
+
+			//display chord textual details (notes, keys)
 			if (notesTextRow === null) {
 				notesTextRow = $('<span>');
 				self.container.append(notesTextRow);
 			}
-			notesTextRow.empty().text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + keys.join());
-			cleanKeys();
+			notesTextRow.text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + keys.join());
+
+			//display notes on keyboard, coloring keys
 			colorKeys(keys);
 		};
 

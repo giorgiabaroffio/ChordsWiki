@@ -1,4 +1,4 @@
-.chordsWiki_keyboard:after {
+.chordsWiki_keyboard :after {
   content: "";
   visibility: hidden;
   display: block;
@@ -13,12 +13,24 @@
   float: right;
   width: 50%; }
 
+.chordsWiki_keyboard_container {
+  position: relative;
+  padding-bottom: 50%;
+  height: 0; }
+
+.chordsWiki_keyboard {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%; }
+
 .chordsWiki_key {
   float: left;
   position: relative;
   width: calc(100% / 7);
   border: 2px solid #959595;
-  height: 150px;
+  height: 100%;
   box-sizing: border-box; }
 
 .chordsWiki_key:not(:first-child) {
@@ -26,11 +38,10 @@
 
 .chordsWiki_black_key {
   position: absolute;
-  left: 53%;
+  left: 65%;
   background-color: black;
-  border: 2px solid black;
-  width: 94%;
-  height: 50%;
+  width: 70%;
+  height: 55%;
   z-index: 1; }
 
 .chordsWiki_pressed_key {

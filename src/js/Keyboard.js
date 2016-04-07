@@ -248,7 +248,7 @@
 		 */
 		var colorKeys = function(keys){
 			for(var k in keys){
-				$( '['+CONST.ATTRIBUTE.KEY+'= "'+keys[k]+'"]').addClass(CONST.CSS.PRESSED_KEY);
+				self.container.find( '['+CONST.ATTRIBUTE.KEY+'= "'+keys[k]+'"]').addClass(CONST.CSS.PRESSED_KEY);
 			}
 		};
 
