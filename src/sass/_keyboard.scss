@@ -1,5 +1,18 @@
-.chordsWiki_keyboard:after {
-	@extend %clearfix;
+.chordsWiki_keyboard_container{
+	position: relative;
+	padding-bottom: 50%;
+	height: 0;
+}
+
+.chordsWiki_keyboard {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	:after {
+		@extend %clearfix;
+	}
 }
 
 .chordsWiki_key{
@@ -7,7 +20,7 @@
 	position: relative;
 	width: calc(100% / 7);
 	border: 2px solid #959595;
-	height: 150px;
+	height: 100%;
 	box-sizing: border-box;
 }
 
@@ -16,14 +29,13 @@
 }
 
 .chordsWiki_black_key{
-	 position: absolute;
-	 left: 53%;
-	 background-color: black;
-	 border: 2px solid black;
-	 width: 94%;
-	 height: 50%;
-	 z-index: 1;
- }
+	position: absolute;
+	left: 65%;
+	background-color: black;
+	width: 70%;
+	height: 55%;
+	z-index: 1;
+}
 
 .chordsWiki_pressed_key{
 	background-color: red;
