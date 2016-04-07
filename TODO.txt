@@ -1,7 +1,5 @@
 TODO
-- Keyboard refactoring:
-	- notesLookup should throw exception if not valid input (manage exception in displayNotes)
-- test Keyboard.js
+- improve test Keyboard.js
 - improve keyboard rendering
 - manage communication between chartWiki and keyboard
 - add instrument selection ? (later)
