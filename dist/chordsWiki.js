@@ -174,7 +174,11 @@ if (typeof(chordsWiki) === 'undefined') {
 
 			chordSelect.change(function() {
 				if (isSelectionValid()) {
-					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					try {
+						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					}catch(err){
+						console.log(err);
+					}
 				}
 				else{
 					config.instrument.cleanNotes();
@@ -183,7 +187,11 @@ if (typeof(chordsWiki) === 'undefined') {
 
 			categorySelect.change(function() {
 				if (isSelectionValid()) {
-					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					try {
+						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					}catch(err){
+						console.log(err);
+					}
 				}
 				else{
 					config.instrument.cleanNotes();
@@ -257,6 +265,9 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 			},
 			ATTRIBUTE: {
 				KEY: 'data-key'
+			},
+			ERROR: {
+				CHORD_NOT_FOUND: 'Chord not found'
 			}
 		};
 
@@ -431,7 +442,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		 * Retrieve the set of notes given the chord and the category
 		 * @param {string} chord - The id of the chord selected
 		 * @param {string} category - The id of the chord category selected
-		 * @returns {boolean|string[]}
+		 * @returns {string[]}
 		 */
 		var notesLookup = function(chord, category) {
 			var chordInstances = instrumentChordsData.chord_instances;
@@ -440,7 +451,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 					return chordInstances[c].notes;
 				}
 			}
-			return false;
+			return [];
 		};
 
 		/**
@@ -457,38 +468,6 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 				}
 			}
 			return properties;
-		};
-
-		/**
-		 * Get notes labels by ids
-		 * @param {string[]} noteIds - The array containing the list of notes ids
-		 * @returns {string[]}
-		 */
-		var getNotesLabelByIds = function(noteIds) {
-			var notes = instrumentChordsData.notes;
-			var labels = [];
-			for (var n in notes) {
-				if (noteIds.indexOf(notes[n].id) > -1) {
-					labels.push(notes[n].label);
-				}
-			}
-			return labels;
-		};
-
-		/**
-		 * Get keys ids given the notes array
-		 * @param {string[]} noteIds - The array containing the list of notes ids
-		 * @returns {string[]}
-		 */
-		var getNotesKeysByIds = function(noteIds) {
-			var notes = instrumentChordsData.notes;
-			var keys = [];
-			for (var n in notes) {
-				if (noteIds.indexOf(notes[n].id) > -1) {
-					keys.push(notes[n].key);
-				}
-			}
-			return keys;
 		};
 
 		/**
@@ -518,6 +497,9 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		this.displayNotes = function(chord, category) {
 			self.cleanNotes();
 			var notes = notesLookup(chord, category);
+			if(notes.length===0){
+				throw CONST.ERROR.CHORD_NOT_FOUND;
+			}
 
 			var notesLabels = getNotesProperty(notes, 'label');
 			var keys = getNotesProperty(notes, 'key');

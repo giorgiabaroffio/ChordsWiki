@@ -164,7 +164,11 @@
 
 			chordSelect.change(function() {
 				if (isSelectionValid()) {
-					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					try {
+						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					}catch(err){
+						console.log(err);
+					}
 				}
 				else{
 					config.instrument.cleanNotes();
@@ -173,7 +177,11 @@
 
 			categorySelect.change(function() {
 				if (isSelectionValid()) {
-					config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					try {
+						config.instrument.displayNotes(chordSelect.val(),categorySelect.val());
+					}catch(err){
+						console.log(err);
+					}
 				}
 				else{
 					config.instrument.cleanNotes();

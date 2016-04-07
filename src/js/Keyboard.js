@@ -24,6 +24,9 @@
 			},
 			ATTRIBUTE: {
 				KEY: 'data-key'
+			},
+			ERROR: {
+				CHORD_NOT_FOUND: 'Chord not found'
 			}
 		};
 
@@ -198,7 +201,7 @@
 		 * Retrieve the set of notes given the chord and the category
 		 * @param {string} chord - The id of the chord selected
 		 * @param {string} category - The id of the chord category selected
-		 * @returns {boolean|string[]}
+		 * @returns {string[]}
 		 */
 		var notesLookup = function(chord, category) {
 			var chordInstances = instrumentChordsData.chord_instances;
@@ -207,7 +210,7 @@
 					return chordInstances[c].notes;
 				}
 			}
-			return false;
+			return [];
 		};
 
 		/**
@@ -253,6 +256,9 @@
 		this.displayNotes = function(chord, category) {
 			self.cleanNotes();
 			var notes = notesLookup(chord, category);
+			if(notes.length===0){
+				throw CONST.ERROR.CHORD_NOT_FOUND;
+			}
 
 			var notesLabels = getNotesProperty(notes, 'label');
 			var keys = getNotesProperty(notes, 'key');
