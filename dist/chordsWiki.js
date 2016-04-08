@@ -507,8 +507,8 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		 * Clean notes on keyboard
 		 */
 		var cleanKeys = function(){
-			$(CONST.SELECTOR.BLACK_KEY).removeClass(CONST.CSS.PRESSED_KEY);
-			$(CONST.SELECTOR.WHITE_KEY).removeClass(CONST.CSS.PRESSED_KEY);
+			self.container.find(CONST.SELECTOR.BLACK_KEY).removeClass(CONST.CSS.PRESSED_KEY);
+			self.container.find(CONST.SELECTOR.WHITE_KEY).removeClass(CONST.CSS.PRESSED_KEY);
 		};
 
 

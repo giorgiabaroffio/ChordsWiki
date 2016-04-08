@@ -17,6 +17,8 @@ describe('chordsWiki.Keyboard', function() {
 	beforeEach(function() {
 
 		keyboardObject = new chordsWiki.Keyboard();
+		keyboardContainer = keyboardObject.container.find('> div')[0];
+		keyboardInstrument = $(keyboardContainer).find('> div')[0];
 
 	});
 
@@ -118,14 +120,27 @@ describe('chordsWiki.Keyboard', function() {
 	describe('.displayChordDetails when invoked', function() {
 		beforeEach(function() {
 			keyboardObject.displayChordDetails(0,0);
-			keyboardContainer = keyboardObject.container.find('> div')[0];
-			keyboardInstrument = $(keyboardContainer).find('> div')[0];
 		});
 		it('appends a <span> element to the container if it does not exist to display chord details', function() {
 			expect(keyboardObject.container.find('> span').length).toEqual(1);
 		});
 		it('colors the keys composing the selected chord, assigning the css class ' + CONST.CSS.PRESSED_KEY, function() {
 			expect($(keyboardInstrument).find('> div')[0]).toHaveClass(CONST.CSS.PRESSED_KEY);
+			expect($(keyboardInstrument).find('> div')[2]).toHaveClass(CONST.CSS.PRESSED_KEY);
+			expect($(keyboardInstrument).find('> div')[4]).toHaveClass(CONST.CSS.PRESSED_KEY);
+		});
+	});
+
+	describe('.cleanChordDetails when invoked', function() {
+		beforeEach(function() {
+			keyboardObject.displayChordDetails(0,0);
+			keyboardObject.cleanChordDetails();
+		});
+		it('deletes the content of the <span> element containing chord details, if this element already exists', function() {
+			expect(keyboardObject.container.find('> span')[0]).toBeEmpty();
+		});
+		it('cleans colored keys composing the last selected chord, removing the css class ' + CONST.CSS.PRESSED_KEY, function() {
+			expect($(keyboardInstrument).find('div')).not.toHaveClass(CONST.CSS.PRESSED_KEY);
 		});
 	});
 });
