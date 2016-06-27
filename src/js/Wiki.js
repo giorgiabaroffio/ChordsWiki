@@ -2,38 +2,28 @@
 	'use strict';
 	/**
 	 * Constructor of the chords wiki widget
-	 * @param {jquery} params.rootElement
 	 * @param {Object} params.dataSource
-	 * @param {Object} params.instrument
 	 * @constructor
 	 */
 	chordsWiki.Wiki = function(params) {
 
 		var CONST = {
 			CSS: {
-				EAST_AREA: 'chordsWiki_east_area',
-				WEST_AREA: 'chordsWiki_west_area',
 				DETAILS_ROW: 'chordsWiki_details_row'
 			},
 			LABEL: {
-				SUBTITLE_EAST: 'Chord selection',
-				SUBTITLE_WEST: 'Chord details',
 				PLEASE_SELECT_CHORD: 'Please select a chord',
 				PLEASE_SELECT_CATEGORY: 'Please select a category',
 				DETAILS_HEADING: 'Notes: '
 			},
 			SELECTOR: {
-				EAST_AREA: '.chordsWiki_east_area',
-				WEST_AREA: '.chordsWiki_west_area',
 				DETAILS_ROW: '.chordsWiki_details_row'
 			},
 			DATA_URL: 'src/data/chordsData.json'
 		};
 
 		var config = {
-			rootElement: $('body'),
 			dataSource: chordsWiki.chordsData,
-			instrument: undefined
 		};
 
 		$.extend(config, params);
@@ -44,28 +34,13 @@
 
 		var chordSelect = null;
 		var categorySelect = null;
-		var eastContainer = null;
-		var westContainer = null;
 
 		var init = function() {
 			chordSelect = initializeSelect(chordSelect, CONST.LABEL.PLEASE_SELECT_CHORD);
 			categorySelect = initializeSelect(categorySelect, CONST.LABEL.PLEASE_SELECT_CATEGORY);
 			render();
-			config.rootElement.append(self.container);
 			loadData();
 			attachEvents();
-			initInstrument();
-
-		};
-
-		/**
-		 * Initialize the instrument (either a custom one or the default one)
-		 */
-		var initInstrument = function() {
-			if (typeof(config.instrument) === 'undefined'){
-				config.instrument = new chordsWiki.Keyboard();
-			}
-			westContainer.append(config.instrument.container);
 		};
 
 		/**
@@ -90,45 +65,9 @@
 		 */
 		var render = function() {
 
-			//Main content wrapper creation
-			var mainContent = $('<main>');
-
-			//Append east and west areas to mainContent
-			mainContent.append(renderEast());
-			mainContent.append(renderWest());
-
-			//Append mainContent to container
-			self.container.append(mainContent);
-
-		};
-
-		/**
-		 * Render the east area of the UI
-		 */
-		var renderEast = function() {
-
-			eastContainer = $('<div>');
-			eastContainer.addClass(CONST.CSS.EAST_AREA);
-			var subtitleEast = $('<h2>');
-			subtitleEast.text(CONST.LABEL.SUBTITLE_EAST);
-			eastContainer.append(subtitleEast);
-			eastContainer.append(chordSelect);
-			eastContainer.append(categorySelect);
-			return eastContainer;
-
-		};
-
-		/**
-		 * Render the west area of the UI
-		 */
-		var renderWest = function() {
-
-			westContainer = $('<div>');
-			westContainer.addClass(CONST.CSS.WEST_AREA);
-			var subtitleWest = $('<h2>');
-			subtitleWest.text(CONST.LABEL.SUBTITLE_WEST);
-			westContainer.append(subtitleWest);
-			return westContainer;
+			//Append the selection fields to the container
+			self.container.append(chordSelect);
+			self.container.append(categorySelect);
 
 		};
 
