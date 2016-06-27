@@ -9,7 +9,7 @@
 		var CONST = {
 			CSS: {
 				KEYBOARD: 'chordsWiki_keyboard',
-				WHITE_KEY: 'chordsWiki_key',
+				WHITE_KEY: 'chordsWiki_white_key',
 				BLACK_KEY: 'chordsWiki_black_key',
 				PRESSED_KEY: 'chordsWiki_pressed_key',
 				KEYBOARD_CONTAINER: 'chordsWiki_keyboard_container'
@@ -19,7 +19,7 @@
 				KEYS: 'Keys'
 			},
 			SELECTOR: {
-				WHITE_KEY: '.chordsWiki_key',
+				WHITE_KEY: '.chordsWiki_white_key',
 				BLACK_KEY: '.chordsWiki_black_key'
 			},
 			ATTRIBUTE: {
