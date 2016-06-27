@@ -2,9 +2,9 @@
 	'use strict';
 	/**
 	 * Constructor of the chords wiki widget
-	 * @param {jquery} options.rootElement
-	 * @param {Object} options.dataSource
-	 * @param {Object} options.instrument
+	 * @param {jquery} params.rootElement
+	 * @param {Object} params.dataSource
+	 * @param {Object} params.instrument
 	 * @constructor
 	 */
 	chordsWiki.Wiki = function(params) {

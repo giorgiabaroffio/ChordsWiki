@@ -12,9 +12,37 @@ if (typeof(chordsWiki) === 'undefined') {
 	'use strict';
 	/**
 	 * Constructor of the chords wiki widget
-	 * @param {jquery} options.rootElement
-	 * @param {Object} options.dataSource
-	 * @param {Object} options.instrument
+	 * @param {jquery} params.rootElement
+	 * @param {Object} params.dataSource
+	 * @param {Object} params.instrument
+	 * @constructor
+	 */
+	chordsWiki.WikiManager = function(params) {
+
+		var wiki = null;
+
+		var init = function() {
+			console.log('wiki manager init');
+			wiki = new chordsWiki.Wiki({
+				rootElement: params.rootElement,
+				dataSource: params.dataSource,
+				instrument: params.instrument
+			});
+		};
+
+		init();
+
+	};
+
+}());
+
+(function() {
+	'use strict';
+	/**
+	 * Constructor of the chords wiki widget
+	 * @param {jquery} params.rootElement
+	 * @param {Object} params.dataSource
+	 * @param {Object} params.instrument
 	 * @constructor
 	 */
 	chordsWiki.Wiki = function(params) {
@@ -245,7 +273,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		var CONST = {
 			CSS: {
 				KEYBOARD: 'chordsWiki_keyboard',
-				WHITE_KEY: 'chordsWiki_key',
+				WHITE_KEY: 'chordsWiki_white_key',
 				BLACK_KEY: 'chordsWiki_black_key',
 				PRESSED_KEY: 'chordsWiki_pressed_key',
 				KEYBOARD_CONTAINER: 'chordsWiki_keyboard_container'
@@ -255,7 +283,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 				KEYS: 'Keys'
 			},
 			SELECTOR: {
-				WHITE_KEY: '.chordsWiki_key',
+				WHITE_KEY: '.chordsWiki_white_key',
 				BLACK_KEY: '.chordsWiki_black_key'
 			},
 			ATTRIBUTE: {
