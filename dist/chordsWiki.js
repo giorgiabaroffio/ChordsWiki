@@ -128,6 +128,12 @@ if (typeof(chordsWiki) === 'undefined') {
 			}
 		};
 
+		this.onSelectionResetHandler = function(data){
+			if(instrument !== null){
+				instrument.cleanChordDetails();
+			}
+		};
+
 	};
 
 }());
@@ -255,6 +261,7 @@ if (typeof(chordsWiki) === 'undefined') {
 					}
 				}
 				else{
+					self.notifyObservers('selectionReset', {});
 					//config.instrument.cleanChordDetails();
 				}
 			});

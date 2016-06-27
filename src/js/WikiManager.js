@@ -118,6 +118,12 @@
 			}
 		};
 
+		this.onSelectionResetHandler = function(data){
+			if(instrument !== null){
+				instrument.cleanChordDetails();
+			}
+		};
+
 	};
 
 }());

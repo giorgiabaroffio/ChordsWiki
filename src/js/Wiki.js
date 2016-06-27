@@ -121,6 +121,7 @@
 					}
 				}
 				else{
+					self.notifyObservers('selectionReset', {});
 					//config.instrument.cleanChordDetails();
 				}
 			});
