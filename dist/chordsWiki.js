@@ -147,24 +147,19 @@ if (typeof(chordsWiki) === 'undefined') {
 		 */
 		var loadData = function() {
 			var data = config.dataSource;
-			populateSelect(data.chord_types, chordSelect);
-			populateSelect(data.chord_categories, categorySelect);
-
+			populateSelect(data, chordSelect, $('#chordsTypes').html());
+			populateSelect(data, categorySelect, $('#chordsCategories').html());
 		};
 
 		/**
 		 * Populate select field given the data array and the select object
-		 * @param {Object} dataArray - the object containing data to be parsed.
+		 * @param {Object} data - the object containing data to be parsed.
 		 * @param {Object} selectObj - the selection field to be populated.
+		 * @param {Object} templateScript - the Handlebars template script.
 		 */
-		var populateSelect = function(dataArray, selectObj) {
-			for (var i = 0; i < dataArray.length; i++) {
-				var record = dataArray[i];
-				var option = $('<option>');
-				option.text(record.label);
-				option.val(record.id);
-				selectObj.append(option);
-			}
+		var populateSelect = function(data, selectObj, templateScript) {
+			var template = Handlebars.compile (templateScript);
+			selectObj.append(template(data));
 		};
 
 		/**
