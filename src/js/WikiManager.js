@@ -27,7 +27,7 @@
 		var config = {
 			rootElement: $('body'),
 			dataSource: chordsWiki.chordsData,
-			instrument: undefined
+			instrument: null
 		};
 
 		$.extend(config, params);
@@ -44,15 +44,17 @@
 
 		var init = function() {
 			render();
-
-			wiki = new chordsWiki.Wiki({
-				dataSource: chordsWiki.chordsData,
-			});
-
+			initWiki();
 			instrument = config.instrument;
-
 			appendExternalContent();
 			config.rootElement.append(self.container);
+		};
+
+		var initWiki = function() {
+			wiki = new chordsWiki.Wiki({
+				dataSource: chordsWiki.chordsData
+			});
+			wiki.addObserver(self);
 		};
 
 		/**
@@ -102,10 +104,19 @@
 
 		var appendExternalContent = function() {
 			eastContainer.append(wiki.container);
-			westContainer.append(instrument.container);
+			if(instrument !== null){
+				westContainer.append(instrument.container);
+			}
+
 		};
 
 		init();
+
+		this.onSelectionChangedHandler = function(data){
+			if(instrument !== null){
+				instrument.displayChordDetails(data.chord, data.category);
+			}
+		};
 
 	};
 

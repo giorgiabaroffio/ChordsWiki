@@ -37,7 +37,7 @@ if (typeof(chordsWiki) === 'undefined') {
 		var config = {
 			rootElement: $('body'),
 			dataSource: chordsWiki.chordsData,
-			instrument: undefined
+			instrument: null
 		};
 
 		$.extend(config, params);
@@ -54,15 +54,17 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var init = function() {
 			render();
-
-			wiki = new chordsWiki.Wiki({
-				dataSource: chordsWiki.chordsData,
-			});
-
-			instrument = params.instrument;
-
+			initWiki();
+			instrument = config.instrument;
 			appendExternalContent();
 			config.rootElement.append(self.container);
+		};
+
+		var initWiki = function() {
+			wiki = new chordsWiki.Wiki({
+				dataSource: chordsWiki.chordsData
+			});
+			wiki.addObserver(self);
 		};
 
 		/**
@@ -112,10 +114,19 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var appendExternalContent = function() {
 			eastContainer.append(wiki.container);
-			westContainer.append(instrument.container);
+			if(instrument !== null){
+				westContainer.append(instrument.container);
+			}
+
 		};
-		
+
 		init();
+
+		this.onSelectionChangedHandler = function(data){
+			if(instrument !== null){
+				instrument.displayChordDetails(data.chord, data.category);
+			}
+		};
 
 	};
 
@@ -129,6 +140,8 @@ if (typeof(chordsWiki) === 'undefined') {
 	 * @constructor
 	 */
 	chordsWiki.Wiki = function(params) {
+
+		luga.extend(luga.Notifier, this);
 
 		var CONST = {
 			CSS: {
@@ -235,13 +248,14 @@ if (typeof(chordsWiki) === 'undefined') {
 			categorySelect.change(function() {
 				if (isSelectionValid()) {
 					try {
-						config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
+						//config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
+						self.notifyObservers('selectionChanged', { chord: chordSelect.val(), category: categorySelect.val()});
 					}catch(err){
 						console.log(err);
 					}
 				}
 				else{
-					config.instrument.cleanChordDetails();
+					//config.instrument.cleanChordDetails();
 				}
 			});
 		};

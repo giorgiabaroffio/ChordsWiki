@@ -7,6 +7,8 @@
 	 */
 	chordsWiki.Wiki = function(params) {
 
+		luga.extend(luga.Notifier, this);
+
 		var CONST = {
 			CSS: {
 				DETAILS_ROW: 'chordsWiki_details_row'
@@ -112,13 +114,14 @@
 			categorySelect.change(function() {
 				if (isSelectionValid()) {
 					try {
-						config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
+						//config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
+						self.notifyObservers('selectionChanged', { chord: chordSelect.val(), category: categorySelect.val()});
 					}catch(err){
 						console.log(err);
 					}
 				}
 				else{
-					config.instrument.cleanChordDetails();
+					//config.instrument.cleanChordDetails();
 				}
 			});
 		};
