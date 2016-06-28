@@ -101,13 +101,13 @@
 			chordSelect.change(function() {
 				if (isSelectionValid()) {
 					try {
-						config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
+						self.notifyObservers('selectionChanged', { chord: chordSelect.val(), category: categorySelect.val()});
 					}catch(err){
 						console.log(err);
 					}
 				}
 				else{
-					config.instrument.cleanChordDetails();
+					self.notifyObservers('selectionReset', {});
 				}
 			});
 
