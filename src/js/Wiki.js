@@ -1,31 +1,34 @@
 (function() {
 	'use strict';
 	/**
-	 * Constructor of the chords wiki widget
-	 * @param {Object} params.dataSource
+	 * Constructor of the chords wiki
+	 * @param {Object} params.dataSource - data with the list of chords types and categories
 	 * @constructor
+	 * @extend luga.Notifier
+	 * @fires selectionChanged
+	 * @fires selectionReset
 	 */
 	chordsWiki.Wiki = function(params) {
 
 		luga.extend(luga.Notifier, this);
 
 		var CONST = {
-			CSS: {
-				DETAILS_ROW: 'chordsWiki_details_row'
-			},
 			LABEL: {
 				PLEASE_SELECT_CHORD: 'Please select a chord',
-				PLEASE_SELECT_CATEGORY: 'Please select a category',
-				DETAILS_HEADING: 'Notes: '
+				PLEASE_SELECT_CATEGORY: 'Please select a category'
 			},
-			SELECTOR: {
-				DETAILS_ROW: '.chordsWiki_details_row'
+			EVENT: {
+				SELECTION_CHANGED : 'selectionChanged',
+				SELECTION_RESET : 'selectionReset'
 			},
-			DATA_URL: 'src/data/chordsData.json'
+			TEMPLATE_SELECTOR: {
+				CHORD_TYPES: '#chordsTypes',
+				CHORD_CATEGORIES: '#chordsCategories'
+			}
 		};
 
 		var config = {
-			dataSource: chordsWiki.chordsData,
+			dataSource: chordsWiki.chordsData
 		};
 
 		$.extend(config, params);
@@ -49,7 +52,7 @@
 		 * Initialize select field
 		 * @param {Object} select - The selection field object.
 		 * @param {string} placeholder - The placeholder for the selection field.
-		 * @returns {Object}
+		 * @returns {jQuery} select - The initialized selection field jQuery object
 		 */
 		var initializeSelect = function(select, placeholder) {
 
@@ -78,14 +81,14 @@
 		 */
 		var loadData = function() {
 			var data = config.dataSource;
-			populateSelect(data, chordSelect, $('#chordsTypes').html());
-			populateSelect(data, categorySelect, $('#chordsCategories').html());
+			populateSelect(data, chordSelect, $(CONST.TEMPLATE_SELECTOR.CHORD_TYPES).html());
+			populateSelect(data, categorySelect, $(CONST.TEMPLATE_SELECTOR.CHORD_CATEGORIES).html());
 		};
 
 		/**
 		 * Populate select field given the data array and the select object
 		 * @param {Object} data - the object containing data to be parsed.
-		 * @param {Object} selectObj - the selection field to be populated.
+		 * @param {jQuery} selectObj - the selection field to be populated.
 		 * @param {Object} templateScript - the Handlebars template script.
 		 */
 		var populateSelect = function(data, selectObj, templateScript) {
@@ -93,38 +96,25 @@
 			selectObj.append(template(data));
 		};
 
+		var handleOnSelectionChange = function() {
+			if (isSelectionValid()) {
+				try {
+					self.notifyObservers(CONST.EVENT.SELECTION_CHANGED, { chord: chordSelect.val(), category: categorySelect.val()});
+				}catch(err){
+					console.log(err);
+				}
+			}
+			else{
+				self.notifyObservers(CONST.EVENT.SELECTION_RESET, {});
+			}
+		}
+
 		/**
 		 * Attach events to UI elements
 		 */
 		var attachEvents = function() {
-
-			chordSelect.change(function() {
-				if (isSelectionValid()) {
-					try {
-						self.notifyObservers('selectionChanged', { chord: chordSelect.val(), category: categorySelect.val()});
-					}catch(err){
-						console.log(err);
-					}
-				}
-				else{
-					self.notifyObservers('selectionReset', {});
-				}
-			});
-
-			categorySelect.change(function() {
-				if (isSelectionValid()) {
-					try {
-						//config.instrument.displayChordDetails(chordSelect.val(),categorySelect.val());
-						self.notifyObservers('selectionChanged', { chord: chordSelect.val(), category: categorySelect.val()});
-					}catch(err){
-						console.log(err);
-					}
-				}
-				else{
-					self.notifyObservers('selectionReset', {});
-					//config.instrument.cleanChordDetails();
-				}
-			});
+			chordSelect.change(handleOnSelectionChange);
+			categorySelect.change(handleOnSelectionChange);
 		};
 
 		/**
