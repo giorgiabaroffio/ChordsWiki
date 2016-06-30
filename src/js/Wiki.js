@@ -107,7 +107,7 @@
 			else{
 				self.notifyObservers(CONST.EVENT.SELECTION_RESET, {});
 			}
-		}
+		};
 
 		/**
 		 * Attach events to UI elements
