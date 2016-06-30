@@ -25,6 +25,7 @@ var CONST = {
 		'src/js/WikiManager.js',
 		'src/js/Wiki.js',
 		'src/js/chordsData.js',
+		'src/js/Instrument.js',
 		'src/js/Keyboard.js'
 	],
 	SCSS_FOLDER: 'src/sass/*.scss'

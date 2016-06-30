@@ -37,7 +37,7 @@
 		var config = {
 			rootElement: $('body'),
 			dataSource: chordsWiki.chordsData,
-			instrument: null
+			instrument: new chordsWiki.Instrument()
 		};
 
 		$.extend(config, params);
@@ -125,10 +125,8 @@
 			//append the wiki
 			eastContainer.append(wiki.container);
 
-			//append the instrument, if any
-			if(instrument !== null){
-				westContainer.append(instrument.container);
-			}
+			//append the instrument
+			westContainer.append(instrument.container);
 
 		};
 
@@ -141,18 +139,14 @@
 		 * @param {chordsWiki.WikiManager.Chord} data
 		 */
 		this.onSelectionChangedHandler = function(data){
-			if(instrument !== null){
-				instrument.displayChordDetails(data.chord, data.category);
-			}
+			instrument.displayChordDetails(data.chord, data.category);
 		};
 
 		/**
 		 * Listen to the "selectionReset" event notifications broadcast by the Wiki
 		 */
 		this.onSelectionResetHandler = function(data){
-			if(instrument !== null){
-				instrument.cleanChordDetails();
-			}
+			instrument.cleanChordDetails();
 		};
 
 	};

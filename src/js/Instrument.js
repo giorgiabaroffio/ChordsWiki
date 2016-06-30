@@ -1,32 +1,14 @@
 (function() {
 	'use strict';
 	/**
-	 * Constructor of the Keyboard instrument
+	 * Constructor of the Instrument object
 	 * @constructor
-	 * @extend chordsWiki.Instrument
 	 */
-	chordsWiki.Keyboard = function(params) {
-
-		chordsWiki.superClass(this, chordsWiki.Instrument, arguments);
+	chordsWiki.Instrument = function(params) {
 
 		var CONST = {
-			CSS: {
-				KEYBOARD: 'chordsWiki_keyboard',
-				WHITE_KEY: 'chordsWiki_white_key',
-				BLACK_KEY: 'chordsWiki_black_key',
-				PRESSED_KEY: 'chordsWiki_pressed_key',
-				KEYBOARD_CONTAINER: 'chordsWiki_keyboard_container'
-			},
 			LABEL: {
 				NOTES: 'Notes',
-				KEYS: 'Keys'
-			},
-			SELECTOR: {
-				WHITE_KEY: '.chordsWiki_white_key',
-				BLACK_KEY: '.chordsWiki_black_key'
-			},
-			ATTRIBUTE: {
-				KEY: 'data-key'
 			},
 			ERROR: {
 				CHORD_NOT_FOUND: 'Chord not found'
@@ -158,46 +140,14 @@
 			self.container.append(render());
 		};
 
-		/**
-		 * Create the key object
-		 * @param {boolean} addBlackKey - Flag to define the type of keyboard key (with black key following or not).
-		 * @param {string} whiteKeyId - The key attribute unequivocally identifying the white key
-		 * @param {string} blackKeyId - The key attribute unequivocally identifying the black key
-		 * @returns {jQuery} whiteKey - The keyboard key jQuery object generated
-		 */
-		var createWhiteKey = function(addBlackKey, whiteKeyId, blackKeyId) {
-			var whiteKey = $('<div>');
-			whiteKey.addClass(CONST.CSS.WHITE_KEY);
-			whiteKey.attr(CONST.ATTRIBUTE.KEY, whiteKeyId);
-			if (addBlackKey === true) {
-				var blackKey = $('<div>');
-				blackKey.addClass(CONST.CSS.BLACK_KEY);
-				blackKey.attr(CONST.ATTRIBUTE.KEY, blackKeyId);
-				whiteKey.append(blackKey);
-			}
-			return whiteKey;
-		};
+
 
 		/**
-		 * Render the UI of the keyboard
+		 * Render the UI of the instrument
 		 */
 		var render = function() {
-			var keyboardContainer = $('<div>');
-			keyboardContainer.addClass(CONST.CSS.KEYBOARD_CONTAINER);
-			var keyboardInstrument = $('<div>');
-			keyboardInstrument.addClass(CONST.CSS.KEYBOARD);
-
-			keyboardInstrument.append(createWhiteKey(true,0,1));
-			keyboardInstrument.append(createWhiteKey(true,2,3));
-			keyboardInstrument.append(createWhiteKey(false,4));
-			keyboardInstrument.append(createWhiteKey(true,5,6));
-			keyboardInstrument.append(createWhiteKey(true,7,8));
-			keyboardInstrument.append(createWhiteKey(true,9,10));
-			keyboardInstrument.append(createWhiteKey(false,11));
-
-			keyboardContainer.append(keyboardInstrument);
-			return keyboardContainer;
-
+			var instrumentContainer = $('<div>');
+			return instrumentContainer;
 		};
 
 		/**
@@ -208,9 +158,9 @@
 		 */
 		var notesLookup = function(chord, category) {
 			var chordInstances = instrumentChordsData.chord_instances;
-			for (var c in chordInstances) {
-				if (chordInstances[c].chord_id === parseInt(chord) && chordInstances[c].type_id === parseInt(category)) {
-					return chordInstances[c].notes;
+			for (var i = 0; i < chordInstances.length; i++) {
+				if (chordInstances[i].chord_id === parseInt(chord) && chordInstances[i].type_id === parseInt(category)) {
+					return chordInstances[i].notes;
 				}
 			}
 			return [];
@@ -242,7 +192,7 @@
 				notesTextRow = $('<span>');
 				self.container.append(notesTextRow);
 			}
-			notesTextRow.text(CONST.LABEL.NOTES + ' ' + notesLabels.join() + ' ' + CONST.LABEL.KEYS + ' ' + notesLabels.join());
+			notesTextRow.text(CONST.LABEL.NOTES + ' ' + notesLabels.join());
 		};
 
 		/**
@@ -255,33 +205,11 @@
 		};
 
 		/**
-		 * Display notes on keyboard
-		 * @param {string[]} notes - The array containing the list of notes ids
-		 */
-		var colorKeys = function(notes){
-			var keys = getNotesProperty(notes, 'key');
-			for(var k in keys){
-				self.container.find( '['+CONST.ATTRIBUTE.KEY+'= "'+keys[k]+'"]').addClass(CONST.CSS.PRESSED_KEY);
-			}
-		};
-
-		/**
-		 * Clean notes on keyboard
-		 */
-		var cleanKeys = function(){
-			self.container.find(CONST.SELECTOR.BLACK_KEY).removeClass(CONST.CSS.PRESSED_KEY);
-			self.container.find(CONST.SELECTOR.WHITE_KEY).removeClass(CONST.CSS.PRESSED_KEY);
-		};
-
-
-		/**
 		 * Display chord details
 		 * @param {string} chord - The id of the chord selected
 		 * @param {string} category - The id of the chord category selected
 		 */
 		this.displayChordDetails = function(chord, category) {
-			//clean notes details
-			self.cleanChordDetails();
 
 			//retrieve chord details
 			var notes = notesLookup(chord, category);
@@ -289,11 +217,9 @@
 				throw CONST.ERROR.CHORD_NOT_FOUND;
 			}
 
-			//display chord textual details (notes, keys)
+			//display chord textual details
 			displayTextualDetails(notes);
 
-			//display notes on keyboard, coloring keys
-			colorKeys(notes);
 		};
 
 		/**
@@ -301,7 +227,6 @@
 		 */
 		this.cleanChordDetails = function() {
 			cleanTextualDetails();
-			cleanKeys();
 		};
 
 		init();
