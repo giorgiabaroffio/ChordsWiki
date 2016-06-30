@@ -8,29 +8,39 @@ if (typeof(chordsWiki) === 'undefined') {
 	var chordsWiki = {};
 	/* jshint ignore:end */
 }
+/**
+ * Data broadcast by the Wiki, after both selection fields change and valid values are selected
+ *
+ * @typedef {Object} chordsWiki.WikiManager.Chord
+ * @property {number} chord - The id of the selected chord
+ * @property {number} category - The id of the selected category
+ */
+
 (function() {
 	'use strict';
 	/**
 	 * Constructor of the chords wiki widget
-	 * @param {jquery} params.rootElement
-	 * @param {Object} params.dataSource
-	 * @param {Object} params.instrument
+	 * @param {jQuery} params.rootElement - the jQuery container for the chords wiki widget
+	 * @param {Object} params.dataSource - data with the list of chords types and categories
+	 * @param {Object} params.instrument - the instrument widget that needs to communicate with the Wiki object
 	 * @constructor
+	 * @listens selectionChanged
+	 * @listens selectionReset
 	 */
 	chordsWiki.WikiManager = function(params) {
 
 		var CONST = {
 			CSS: {
 				EAST_AREA: 'chordsWiki_east_area',
-				WEST_AREA: 'chordsWiki_west_area',
+				WEST_AREA: 'chordsWiki_west_area'
 			},
 			LABEL: {
 				SUBTITLE_EAST: 'Chord selection',
-				SUBTITLE_WEST: 'Chord details',
+				SUBTITLE_WEST: 'Chord details'
 			},
 			SELECTOR: {
 				EAST_AREA: '.chordsWiki_east_area',
-				WEST_AREA: '.chordsWiki_west_area',
+				WEST_AREA: '.chordsWiki_west_area'
 			}
 		};
 
@@ -47,6 +57,9 @@ if (typeof(chordsWiki) === 'undefined') {
 		var eastContainer = null;
 		var westContainer = null;
 
+		/**
+		 * @type {chordsWiki.Wiki}
+		 */
 		var wiki = null;
 		var instrument = null;
 
@@ -56,10 +69,13 @@ if (typeof(chordsWiki) === 'undefined') {
 			render();
 			initWiki();
 			instrument = config.instrument;
-			appendExternalContent();
+			appendSubElements();
 			config.rootElement.append(self.container);
 		};
 
+		/**
+		 * Instantiate and initialize the Wiki object. Listen to its events.
+		 */
 		var initWiki = function() {
 			wiki = new chordsWiki.Wiki({
 				dataSource: chordsWiki.chordsData
@@ -72,20 +88,18 @@ if (typeof(chordsWiki) === 'undefined') {
 		 */
 		var render = function() {
 
-			//Main content wrapper creation
 			var mainContent = $('<main>');
 
-			//Append east and west areas to mainContent
 			mainContent.append(renderEast());
 			mainContent.append(renderWest());
 
-			//Append mainContent to container
 			self.container.append(mainContent);
 
 		};
 
 		/**
 		 * Render the east area of the UI
+		 * @returns {jQuery} eastContainer - the jQuery wrapper of the html element containing the east area of the widget
 		 */
 		var renderEast = function() {
 
@@ -100,6 +114,7 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		/**
 		 * Render the west area of the UI
+		 * @returns {jQuery} westContainer - the jQuery wrapper of the html element containing the west area of the widget
 		 */
 		var renderWest = function() {
 
@@ -112,8 +127,15 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		};
 
-		var appendExternalContent = function() {
+		/**
+		 * Append to the east and west container respectively the wiki element and the instrument element
+		 */
+		var appendSubElements = function() {
+
+			//append the wiki
 			eastContainer.append(wiki.container);
+
+			//append the instrument, if any
 			if(instrument !== null){
 				westContainer.append(instrument.container);
 			}
@@ -122,12 +144,21 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		init();
 
+		/* NOTIFICATION HANDLERS */
+
+		/**
+		 * Listen to the "selectionChanged" event notifications broadcast by the Wiki
+		 * @param {chordsWiki.WikiManager.Chord} data
+		 */
 		this.onSelectionChangedHandler = function(data){
 			if(instrument !== null){
 				instrument.displayChordDetails(data.chord, data.category);
 			}
 		};
 
+		/**
+		 * Listen to the "selectionReset" event notifications broadcast by the Wiki
+		 */
 		this.onSelectionResetHandler = function(data){
 			if(instrument !== null){
 				instrument.cleanChordDetails();
