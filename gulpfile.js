@@ -23,8 +23,10 @@ var CONST = {
 	JS_SOURCE_FILES: [
 		'src/js/chordsWiki.js',
 		'src/js/WikiManager.js',
+		'src/js/ChordsEditor.js',
 		'src/js/Wiki.js',
 		'src/js/chordsData.js',
+		'src/js/NotesPicker.js',
 		'src/js/Instrument.js',
 		'src/js/Keyboard.js'
 	],

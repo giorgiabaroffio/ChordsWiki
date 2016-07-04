@@ -182,6 +182,135 @@ if (typeof(chordsWiki) === 'undefined') {
 (function() {
 	'use strict';
 	/**
+	 * Constructor of the chords editor
+	 * @param {Object} params.dataSource - data with the list of chords types and categories
+	 * @constructor
+	 */
+	chordsWiki.ChordsEditor = function(params) {
+
+		var CONST = {
+			CSS: {
+				EAST_AREA: 'chordsWiki_east_area',
+				WEST_AREA: 'chordsWiki_west_area'
+			},
+			LABEL: {
+				SUBTITLE_EAST: 'Chord selection',
+				SUBTITLE_WEST: 'Notes Selection'
+			},
+			SELECTOR: {
+				EAST_AREA: '.chordsWiki_east_area',
+				WEST_AREA: '.chordsWiki_west_area'
+			}
+		};
+
+		var config = {
+			rootElement: $('body'),
+			dataSource: chordsWiki.chordsData
+		};
+
+		$.extend(config, params);
+
+		var self = this;
+
+		this.container = $('<div>');
+		var eastContainer = null;
+		var westContainer = null;
+
+		var wiki = null;
+		var notesPicker = null;
+
+
+		var init = function() {
+			render();
+			initWiki();
+			initNotesPicker();
+			appendSubElements();
+			config.rootElement.append(self.container);
+		};
+
+		/**
+		 * Instantiate and initialize the Wiki object.
+		 */
+		var initWiki = function() {
+			wiki = new chordsWiki.Wiki({
+				dataSource: chordsWiki.chordsData
+			});
+		};
+
+		/**
+		 * Instantiate and initialize the Wiki object.
+		 */
+		var initNotesPicker = function() {
+			notesPicker = new chordsWiki.NotesPicker({
+				dataSource: chordsWiki.chordsData
+			});
+		};
+
+		/**
+		 * Render the UI
+		 */
+		var render = function() {
+
+			var mainContent = $('<main>');
+
+			mainContent.append(renderEast());
+			mainContent.append(renderWest());
+
+			self.container.append(mainContent);
+
+		};
+
+		/**
+		 * Render the east area of the UI
+		 * @returns {jQuery} eastContainer - the jQuery wrapper of the html element containing the east area of the widget
+		 */
+		var renderEast = function() {
+
+			eastContainer = $('<div>');
+			eastContainer.addClass(CONST.CSS.EAST_AREA);
+			var subtitleEast = $('<h2>');
+			subtitleEast.text(CONST.LABEL.SUBTITLE_EAST);
+			eastContainer.append(subtitleEast);
+			return eastContainer;
+
+		};
+
+		/**
+		 * Render the west area of the UI
+		 * @returns {jQuery} westContainer - the jQuery wrapper of the html element containing the west area of the widget
+		 */
+		var renderWest = function() {
+
+			westContainer = $('<div>');
+			westContainer.addClass(CONST.CSS.WEST_AREA);
+			var subtitleWest = $('<h2>');
+			subtitleWest.text(CONST.LABEL.SUBTITLE_WEST);
+			westContainer.append(subtitleWest);
+			return westContainer;
+
+		};
+
+		/**
+		 * Append to the east and west container the subelements composing the editor
+		 */
+		var appendSubElements = function() {
+			//append the wiki
+			eastContainer.append(wiki.container);
+
+			//append the notes picker
+			westContainer.append(notesPicker.container);
+
+		};
+
+		init();
+
+	};
+
+}());
+
+(function() {
+	'use strict';
+	/**
 	 * Constructor of the chords wiki
 	 * @param {Object} params.dataSource - data with the list of chords types and categories
 	 * @constructor
@@ -334,10 +463,157 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 				"id": 1,
 				"label": "minor"
 			}
-		]
+		],
+		"notes": [
+		{
+			"id": 0,
+			"label": "Cb"
+		},
+		{
+			"id": 1,
+			"label": "C"
+		},
+		{
+			"id": 2,
+			"label": "C#"
+		},
+		{
+			"id": 3,
+			"label": "Db"
+		},
+		{
+			"id": 4,
+			"label": "D"
+		},
+		{
+			"id": 5,
+			"label": "D#"
+		},
+		{
+			"id": 6,
+			"label": "Eb"
+		},
+		{
+			"id": 7,
+			"label": "E"
+		},
+		{
+			"id": 8,
+			"label": "E#"
+		},
+		{
+			"id": 9,
+			"label": "Fb"
+		},
+		{
+			"id": 10,
+			"label": "F"
+		},
+		{
+			"id": 11,
+			"label": "F#"
+		},
+		{
+			"id": 12,
+			"label": "Gb"
+		},
+		{
+			"id": 13,
+			"label": "G"
+		},
+		{
+			"id": 14,
+			"label": "G#"
+		},
+		{
+			"id": 15,
+			"label": "Ab"
+		},
+		{
+			"id": 16,
+			"label": "A"
+		},
+		{
+			"id": 17,
+			"label": "A#"
+		},
+		{
+			"id": 18,
+			"label": "Bb"
+		},
+		{
+			"id": 19,
+			"label": "B"
+		},
+		{
+			"id": 20,
+			"label": "B#"
+		}]
 	};
 
 }
+(function() {
+	'use strict';
+	/**
+	 * Constructor of the NotesPicker widget
+	 * @constructor
+	 */
+	chordsWiki.NotesPicker = function(params) {
+
+		var CONST = {
+			DOM: {
+				INPUT_TYPE: 'checkbox',
+				INPUT_NAME: 'note'
+			}
+		};
+
+		var config = {
+			dataSource: chordsWiki.chordsData
+		};
+
+		$.extend(config, params);
+
+		var self = this;
+
+		var notesList = null;
+
+		this.container = $('<div>');
+
+		var init = function() {
+			notesList = initializeNotesCheckboxList(notesList);
+			render();
+			populateNotesCheckboxList(config.dataSource.notes, notesList);
+		};
+
+		/**
+		 * Render the UI
+		 */
+		var render = function() {
+			self.container.append(notesList);
+		};
+
+		var initializeNotesCheckboxList = function(notesList) {
+			notesList = $('<ul>');
+			return notesList;
+		};
+
+		var populateNotesCheckboxList = function(dataArray, list) {
+			for (var i = 0; i < dataArray.length; i++) {
+				var record = dataArray[i];
+				var listEntry = $('<li>');
+				var checkboxElement = $('<input />', { type: CONST.DOM.INPUT_TYPE, name: CONST.DOM.INPUT_NAME, value: record.id });
+				listEntry.append(checkboxElement);
+				listEntry.append(record.label);
+				list.append(listEntry);
+			}
+		};
+
+		init();
+
+	};
+
+}());
+
 (function() {
 	'use strict';
 	/**
@@ -557,7 +833,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 				throw CONST.ERROR.CHORD_NOT_FOUND;
 			}
 
-			//display chord textual details (notes, keys)
+			//display chord textual details
 			displayTextualDetails(notes);
 
 		};
