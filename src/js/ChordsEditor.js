@@ -13,8 +13,8 @@
 				WEST_AREA: 'chordsWiki_west_area'
 			},
 			LABEL: {
-				SUBTITLE_EAST: 'Chord selection',
-				SUBTITLE_WEST: 'Notes Selection'
+				SUBTITLE_WEST: 'Chord selection',
+				SUBTITLE_EAST: 'Notes Selection'
 			},
 			SELECTOR: {
 				EAST_AREA: '.chordsWiki_east_area',
@@ -114,10 +114,10 @@
 		 */
 		var appendSubElements = function() {
 			//append the wiki
-			eastContainer.append(wiki.container);
+			eastContainer.append(notesPicker.container);
 
 			//append the notes picker
-			westContainer.append(notesPicker.container);
+			westContainer.append(wiki.container);
 
 		};
 
