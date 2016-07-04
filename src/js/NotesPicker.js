@@ -54,6 +54,14 @@
 			}
 		};
 
+		this.getSelectedNotes = function() {
+			var options = notesList.find('input');
+			var selectedOptions = $.grep(options, function( option, i ) {
+				return ( option.checked === true );
+			});
+			return selectedOptions;
+		};
+
 		init();
 
 	};

@@ -14,7 +14,8 @@
 			},
 			LABEL: {
 				SUBTITLE_WEST: 'Chord selection',
-				SUBTITLE_EAST: 'Notes Selection'
+				SUBTITLE_EAST: 'Notes Selection',
+				SUBMIT_BUTTON: 'Save'
 			},
 			SELECTOR: {
 				EAST_AREA: '.chordsWiki_east_area',
@@ -37,6 +38,7 @@
 
 		var wiki = null;
 		var notesPicker = null;
+		var submitButton = null;
 
 
 		var init = function() {
@@ -44,6 +46,7 @@
 			initWiki();
 			initNotesPicker();
 			appendSubElements();
+			attachEvents();
 			config.rootElement.append(self.container);
 		};
 
@@ -119,6 +122,22 @@
 			//append the notes picker
 			westContainer.append(wiki.container);
 
+			//append submit button
+			submitButton = $('<button>');
+			submitButton.text(CONST.LABEL.SUBMIT_BUTTON);
+			eastContainer.append(submitButton);
+
+		};
+
+		var handleClick = function() {
+			console.log(notesPicker.getSelectedNotes());
+		};
+
+		/**
+		 * Attach events to UI elements
+		 */
+		var attachEvents = function() {
+			submitButton.click(handleClick);
 		};
 
 		init();

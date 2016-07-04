@@ -195,7 +195,8 @@ if (typeof(chordsWiki) === 'undefined') {
 			},
 			LABEL: {
 				SUBTITLE_WEST: 'Chord selection',
-				SUBTITLE_EAST: 'Notes Selection'
+				SUBTITLE_EAST: 'Notes Selection',
+				SUBMIT_BUTTON: 'Save'
 			},
 			SELECTOR: {
 				EAST_AREA: '.chordsWiki_east_area',
@@ -218,6 +219,7 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		var wiki = null;
 		var notesPicker = null;
+		var submitButton = null;
 
 
 		var init = function() {
@@ -225,6 +227,7 @@ if (typeof(chordsWiki) === 'undefined') {
 			initWiki();
 			initNotesPicker();
 			appendSubElements();
+			attachEvents();
 			config.rootElement.append(self.container);
 		};
 
@@ -300,6 +303,22 @@ if (typeof(chordsWiki) === 'undefined') {
 			//append the notes picker
 			westContainer.append(wiki.container);
 
+			//append submit button
+			submitButton = $('<button>');
+			submitButton.text(CONST.LABEL.SUBMIT_BUTTON);
+			eastContainer.append(submitButton);
+
+		};
+
+		var handleClick = function() {
+			console.log(notesPicker.getSelectedNotes());
+		};
+
+		/**
+		 * Attach events to UI elements
+		 */
+		var attachEvents = function() {
+			submitButton.click(handleClick);
 		};
 
 		init();
@@ -606,6 +625,14 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 				listEntry.append(record.label);
 				list.append(listEntry);
 			}
+		};
+
+		this.getSelectedNotes = function() {
+			var options = notesList.find('input');
+			var selectedOptions = $.grep(options, function( option, i ) {
+				return ( option.checked === true );
+			});
+			return selectedOptions;
 		};
 
 		init();
