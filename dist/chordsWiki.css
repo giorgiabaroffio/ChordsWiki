@@ -6,11 +6,11 @@
   clear: both; }
 
 .chordsWiki_east_area {
-  float: left;
+  float: right;
   width: 50%; }
 
 .chordsWiki_west_area {
-  float: right;
+  float: left;
   width: 50%; }
 
 .chordsWiki_keyboard_container {
