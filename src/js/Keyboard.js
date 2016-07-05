@@ -280,7 +280,7 @@
 			//retrieve chord details
 			var notes = notesLookup(chord, category);
 			if(notes.length===0){
-				throw CONST.ERROR.CHORD_NOT_FOUND;
+				throw new Error(CONST.ERROR.CHORD_NOT_FOUND);
 			}
 
 			//display chord textual details (notes, keys)

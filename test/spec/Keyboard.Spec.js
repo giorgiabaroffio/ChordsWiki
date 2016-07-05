@@ -11,6 +11,9 @@ describe('chordsWiki.Keyboard', function() {
 			BLACK_KEY: 'chordsWiki_black_key',
 			PRESSED_KEY: 'chordsWiki_pressed_key',
 			KEYBOARD_CONTAINER: 'chordsWiki_keyboard_container'
+		},
+		ERROR: {
+			CHORD_NOT_FOUND: 'Chord not found'
 		}
 	};
 
@@ -128,6 +131,9 @@ describe('chordsWiki.Keyboard', function() {
 			expect($(keyboardInstrument).find('> div')[0]).toHaveClass(CONST.CSS.PRESSED_KEY);
 			expect($(keyboardInstrument).find('> div')[2]).toHaveClass(CONST.CSS.PRESSED_KEY);
 			expect($(keyboardInstrument).find('> div')[4]).toHaveClass(CONST.CSS.PRESSED_KEY);
+		});
+		it('throws an exception if the selected chord is not found in the chords dataset', function() {
+			expect(function(){keyboardObject.displayChordDetails(2,2);}).toThrow(new Error(CONST.ERROR.CHORD_NOT_FOUND));
 		});
 	});
 

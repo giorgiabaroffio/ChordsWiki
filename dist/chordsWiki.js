@@ -884,8 +884,6 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 			self.container.append(render());
 		};
 
-
-
 		/**
 		 * Render the UI of the instrument
 		 */
@@ -958,7 +956,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 			//retrieve chord details
 			var notes = notesLookup(chord, category);
 			if(notes.length===0){
-				throw CONST.ERROR.CHORD_NOT_FOUND;
+				throw new Error(CONST.ERROR.CHORD_NOT_FOUND);
 			}
 
 			//display chord textual details
@@ -1261,7 +1259,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 			//retrieve chord details
 			var notes = notesLookup(chord, category);
 			if(notes.length===0){
-				throw CONST.ERROR.CHORD_NOT_FOUND;
+				throw new Error(CONST.ERROR.CHORD_NOT_FOUND);
 			}
 
 			//display chord textual details (notes, keys)

@@ -17,6 +17,10 @@ describe('chordsWiki.WikiManager', function() {
 			D_CUSTOM: 'D_custom',
 			MAJOR_CUSTOM: 'major_custom',
 			MINOR_CUSTOM: 'minor_custom'
+		},
+		EVENT: {
+			SELECTION_CHANGED : 'selectionChanged',
+			SELECTION_RESET : 'selectionReset'
 		}
 	};
 
@@ -129,6 +133,66 @@ describe('chordsWiki.WikiManager', function() {
 			expect($($(customEastArea).find('> div')[0]).is(customInstrument.container)).toEqual(true);
 		});
 
+	});
+
+	describe('initialize a Wiki object', function() {
+		it('instantiating it and appending the Wiki UI to the west area', function() {
+			expect($(westDivElement).find('> div').length).toEqual(1);
+		});
+	});
+
+	describe('initialize an Instrument object', function() {
+
+		var customInstrument, customWikiManager, customEastDivElement;
+
+		beforeEach(function(){
+			customInstrument = new chordsWiki.Keyboard();
+			customWikiManager = new chordsWiki.WikiManager({
+				instrument: customInstrument
+			});
+			var customMainElement = customWikiManager.container.children('main:first');
+			customEastDivElement = customMainElement.children('div:nth-child(1)');
+		});
+
+		it('either getting it from the input params, if not null, and appending the custom Instrument UI to the east area', function() {
+			expect($(customEastDivElement).find('> div').length).toEqual(1);
+		});
+
+		it('or instantiating a new object and appending the Instrument UI to the east area', function() {
+			expect($(eastDivElement).find('> div').length).toEqual(1);
+		});
+
+	});
+
+	describe('listens to the Wiki events: ', function() {
+
+		var chordSelection;
+		var categorySelection;
+
+		beforeEach(function(){
+			chordSelection = wikiManager.container.find('select')[0];
+			categorySelection = wikiManager.container.find('select')[1];
+			spyOn(wikiManager, 'onSelectionChangedHandler');
+			spyOn(wikiManager, 'onSelectionResetHandler');
+		});
+
+		it(CONST.EVENT.SELECTION_CHANGED, function() {
+			var chordTypeId = '0';
+			var chordCategoryId = '0';
+			$(chordSelection).val(chordTypeId);
+			$(categorySelection).val(chordCategoryId);
+			$(chordSelection).trigger('change');
+			expect(wikiManager.onSelectionChangedHandler).toHaveBeenCalled();
+		});
+
+		it(CONST.EVENT.SELECTION_RESET, function() {
+			var chordTypeId = '0';
+			var chordCategoryId = '';
+			$(chordSelection).val(chordTypeId);
+			$(categorySelection).val(chordCategoryId);
+			$(chordSelection).trigger('change');
+			expect(wikiManager.onSelectionResetHandler).toHaveBeenCalled();
+		});
 	});
 
 });
