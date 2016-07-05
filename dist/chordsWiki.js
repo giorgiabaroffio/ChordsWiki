@@ -77,6 +77,9 @@ if (typeof(chordsWiki) === 'undefined') {
 		 * @type {chordsWiki.Wiki}
 		 */
 		var wiki = null;
+		/**
+		 * @type {chordsWiki.Instrument}
+		 */
 		var instrument = null;
 
 		var self = this;
@@ -183,6 +186,7 @@ if (typeof(chordsWiki) === 'undefined') {
 	'use strict';
 	/**
 	 * Constructor of the chords editor
+	 * @param {jQuery} params.rootElement - the jQuery container for the chords editor widget
 	 * @param {Object} params.dataSource - data with the list of chords types and categories
 	 * @constructor
 	 */
@@ -219,11 +223,17 @@ if (typeof(chordsWiki) === 'undefined') {
 		this.container = $('<div>');
 		var eastContainer = null;
 		var westContainer = null;
-
-		var wiki = null;
-		var notesPicker = null;
 		var submitButton = null;
 		var displayArea = null;
+
+		/**
+		 * @type {chordsWiki.Wiki}
+		 */
+		var wiki = null;
+		/**
+		 * @type {chordsWiki.NotesPicker}
+		 */
+		var notesPicker = null;
 
 		var savedChords = [];
 
@@ -246,7 +256,7 @@ if (typeof(chordsWiki) === 'undefined') {
 		};
 
 		/**
-		 * Instantiate and initialize the Wiki object.
+		 * Instantiate and initialize the NotesPicker object.
 		 */
 		var initNotesPicker = function() {
 			notesPicker = new chordsWiki.NotesPicker({
@@ -318,6 +328,11 @@ if (typeof(chordsWiki) === 'undefined') {
 			westContainer.append(displayArea);
 		};
 
+		/**
+		 * Get the index of the chord in the savedChords array, if not existing returns the end of the array as index
+		 * @param chord
+		 * @returns {number} the chord index
+		 */
 		var getChordIndex = function(chord){
 			for (var i = 0; i < savedChords.length; i++) {
 				if(chord.chord === savedChords[i].chord && chord.category === savedChords[i].category){
@@ -325,7 +340,7 @@ if (typeof(chordsWiki) === 'undefined') {
 				}
 			}
 			return savedChords.length;
-		}
+		};
 
 		/**
 		 * Save the chord in the local storage
@@ -473,6 +488,9 @@ if (typeof(chordsWiki) === 'undefined') {
 			selectObj.append(template(data));
 		};
 
+		/**
+		 * Handle the change event on the selection fields and notify the change to the WikiManager
+		 */
 		var handleOnSelectionChange = function() {
 			if (isSelectionValid()) {
 				try {
@@ -635,10 +653,19 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 	};
 
 }
+/**
+ * Note data type, composed of a unique identifier and a label
+ *
+ * @typedef {Object} chordsWiki.NotesPicker.Note
+ * @property {number} id - The id of the note
+ * @property {String} label - The label with the name of the note
+ */
+
 (function() {
 	'use strict';
 	/**
-	 * Constructor of the NotesPicker widget
+	 * Constructor of the NotesPicker widget, a UI with a list of notes that can be selected to compose a chord
+	 * @param {Object} params.dataSource - data with the list of chords types and categories
 	 * @constructor
 	 */
 	chordsWiki.NotesPicker = function(params) {
@@ -663,7 +690,7 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 		this.container = $('<div>');
 
 		var init = function() {
-			notesList = initializeNotesCheckboxList(notesList);
+			notesList = initializeNotesCheckboxList();
 			render();
 			populateNotesCheckboxList(config.dataSource.notes, notesList);
 		};
@@ -675,11 +702,19 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 			self.container.append(notesList);
 		};
 
-		var initializeNotesCheckboxList = function(notesList) {
+		/**
+		 * Initialize the list of notes creating the html list container
+		 */
+		var initializeNotesCheckboxList = function() {
 			notesList = $('<ul>');
 			return notesList;
 		};
 
+		/**
+		 * Populate the list of notes appending the options to the list
+		 * @param {chordsWiki.NotesPicker.Note[]} dataArray - the array of notes
+		 * @param {jQuery} list - the jQuery wrapper of the html list container
+		 */
 		var populateNotesCheckboxList = function(dataArray, list) {
 			for (var i = 0; i < dataArray.length; i++) {
 				var record = dataArray[i];
@@ -691,6 +726,10 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 			}
 		};
 
+		/**
+		 * Get the notes currently selected
+		 * @returns {String[]} notes - the list of ids of the selected notes
+		 */
 		this.getSelectedNotes = function() {
 			var options = notesList.find('input');
 			var notes = [];
@@ -725,12 +764,6 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 				CHORD_NOT_FOUND: 'Chord not found'
 			}
 		};
-
-		var config = {
-
-		};
-
-		$.extend(config, params);
 
 		this.container = $('<div>');
 
@@ -980,12 +1013,6 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 				CHORD_NOT_FOUND: 'Chord not found'
 			}
 		};
-
-		var config = {
-
-		};
-
-		$.extend(config, params);
 
 		this.container = $('<div>');
 

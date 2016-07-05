@@ -13,6 +13,8 @@ module.exports = function(config) {
 		files: [
 			// Libs
 			'lib/jquery.min.js',
+			'lib/handlebars-v4.0.5.js',
+			'lib/luga.core.min.js',
 
 			// Jasmine libs and configuration
 			'test/lib/jasmine/jasmine-jquery.js',
@@ -22,9 +24,13 @@ module.exports = function(config) {
 
 			// Source files
 			'src/js/chordsWiki.js',
+			'src/js/WikiManager.js',
 			'src/js/Wiki.js',
 			'src/js/chordsData.js',
+			'src/js/Instrument.js',
 			'src/js/Keyboard.js',
+			'src/js/ChordsEditor.js',
+			'src/js/NotesPicker.js',
 			'src/**/*.js',
 
 			// Test specs

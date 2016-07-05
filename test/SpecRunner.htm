@@ -8,6 +8,8 @@
 	<link rel="stylesheet" href="lib/jasmine/jasmine-tree.css" />
 
 	<script src="../lib/jquery.min.js"></script>
+	<script src="../lib/handlebars-v4.0.5.js"></script>
+	<script src="../lib/luga.core.min.js"></script>
 	<script src="lib/jasmine/jasmine.js"></script>
 	<script src="lib/jasmine/jasmine-html.js"></script>
 	<script src="lib/jasmine/boot.js"></script>
@@ -15,15 +17,33 @@
 	<script src="lib/jasmine/jasmine-tree.min.js"></script>
 	<script src="fixtures.config.js"></script>
 
+	<!-- Handlebars templates scripts... -->
+	<script id="chordsTypes" type="text/x-handlebars-template">
+		{{#each chord_types}}
+		<option value="{{ id }}">{{ label }}</option>
+		{{/each}}
+	</script>
+	<script id="chordsCategories" type="text/x-handlebars-template">
+		{{#each chord_categories}}
+		<option value="{{ id }}">{{ label }}</option>
+		{{/each}}
+	</script>
+
 
 	<!-- Include source files here... -->
 	<script src="../src/js/chordsWiki.js"></script>
+	<script src="../src/js/WikiManager.js"></script>
 	<script src="../src/js/Wiki.js"></script>
 	<script src="../src/js/chordsData.js"></script>
+	<script src="../src/js/Instrument.js"></script>
 	<script src="../src/js/Keyboard.js"></script>
+	<script src="../src/js/ChordsEditor.js"></script>
+	<script src="../src/js/NotesPicker.js"></script>
 
 	<!-- Include spec files here... -->
-	<script src="spec/chordsWiki.Spec.js"></script>
+	<!--<script src="spec/chordsWiki.Spec.js"></script>-->
+	<script src="spec/WikiManager.Spec.js"></script>
+	<script src="spec/Wiki.Spec.js"></script>
 	<script src="spec/Keyboard.Spec.js"></script>
 
 </head>

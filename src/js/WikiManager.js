@@ -51,6 +51,9 @@
 		 * @type {chordsWiki.Wiki}
 		 */
 		var wiki = null;
+		/**
+		 * @type {chordsWiki.Instrument}
+		 */
 		var instrument = null;
 
 		var self = this;
