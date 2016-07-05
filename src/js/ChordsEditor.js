@@ -20,6 +20,9 @@
 			SELECTOR: {
 				EAST_AREA: '.chordsWiki_east_area',
 				WEST_AREA: '.chordsWiki_west_area'
+			},
+			ERROR: {
+				MISSING_CHORD: 'Please select a chord type and a chord category'
 			}
 		};
 
@@ -40,6 +43,7 @@
 		var notesPicker = null;
 		var submitButton = null;
 
+		var savedChords = [];
 
 		var init = function() {
 			render();
@@ -129,8 +133,31 @@
 
 		};
 
+		/**
+		 * Save the chord in the local storage
+		 * @params {chordsWiki.WikiManager.Chord} chord - the chord object
+		 * @params {String[]} notes - the id of the notes composing the chord
+		 */
+		var saveChord = function(chord, notes) {
+			savedChords.push({
+				chord : chord.chord,
+				category : chord.category,
+				notes : notes
+			});
+			localStorage.setItem('chords', JSON.stringify(savedChords));
+			console.log(localStorage);
+		};
+
+		/**
+		 * Handle the click event on the save button
+		 */
 		var handleClick = function() {
-			console.log(notesPicker.getSelectedNotes());
+			if(wiki.getSelectedChord()!== null){
+				saveChord(wiki.getSelectedChord(), notesPicker.getSelectedNotes());
+			}
+			else{
+				alert(CONST.ERROR.MISSING_CHORD);
+			}
 		};
 
 		/**

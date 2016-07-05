@@ -56,10 +56,14 @@
 
 		this.getSelectedNotes = function() {
 			var options = notesList.find('input');
-			var selectedOptions = $.grep(options, function( option, i ) {
-				return ( option.checked === true );
-			});
-			return selectedOptions;
+			var notes = [];
+			for (var i = 0; i < options.length; i++) {
+				if(options[i].checked === true){
+					notes.push(options[i].value);
+				}
+			}
+
+			return notes;
 		};
 
 		init();

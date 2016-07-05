@@ -124,6 +124,22 @@
 			return (chordSelect.val() !== '' && categorySelect.val() !== '');
 		};
 
+		/**
+		 * Get the current selected chord
+		 * @returns {chordsWiki.WikiManager.Chord | null} the selected chord or null if the selection is not valid
+		 */
+		this.getSelectedChord = function() {
+			if(isSelectionValid()){
+				return {
+					chord: chordSelect.val(),
+					category: categorySelect.val()
+				};
+			}
+			else{
+				return null;
+			}
+		};
+
 		init();
 
 	};

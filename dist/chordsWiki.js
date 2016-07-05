@@ -201,6 +201,9 @@ if (typeof(chordsWiki) === 'undefined') {
 			SELECTOR: {
 				EAST_AREA: '.chordsWiki_east_area',
 				WEST_AREA: '.chordsWiki_west_area'
+			},
+			ERROR: {
+				MISSING_CHORD: 'Please select a chord type and a chord category'
 			}
 		};
 
@@ -221,6 +224,7 @@ if (typeof(chordsWiki) === 'undefined') {
 		var notesPicker = null;
 		var submitButton = null;
 
+		var savedChords = [];
 
 		var init = function() {
 			render();
@@ -310,8 +314,31 @@ if (typeof(chordsWiki) === 'undefined') {
 
 		};
 
+		/**
+		 * Save the chord in the local storage
+		 * @params {chordsWiki.WikiManager.Chord} chord - the chord object
+		 * @params {String[]} notes - the id of the notes composing the chord
+		 */
+		var saveChord = function(chord, notes) {
+			savedChords.push({
+				chord : chord.chord,
+				category : chord.category,
+				notes : notes
+			})
+			localStorage.setItem('chords', JSON.stringify(savedChords));
+			console.log(localStorage);
+		};
+
+		/**
+		 * Handle the click event on the save button
+		 */
 		var handleClick = function() {
-			console.log(notesPicker.getSelectedNotes());
+			if(wiki.getSelectedChord()!== null){
+				saveChord(wiki.getSelectedChord(), notesPicker.getSelectedNotes());
+			}
+			else{
+				alert(CONST.ERROR.MISSING_CHORD);
+			}
 		};
 
 		/**
@@ -451,6 +478,22 @@ if (typeof(chordsWiki) === 'undefined') {
 		 */
 		var isSelectionValid = function() {
 			return (chordSelect.val() !== '' && categorySelect.val() !== '');
+		};
+
+		/**
+		 * Get the current selected chord
+		 * @returns {chordsWiki.WikiManager.Chord | null} the selected chord or null if the selection is not valid
+		 */
+		this.getSelectedChord = function() {
+			if(isSelectionValid()){
+				return {
+					chord: chordSelect.val(),
+					category: categorySelect.val()
+				};
+			}
+			else{
+				return null;
+			}
 		};
 
 		init();
@@ -629,10 +672,14 @@ if (typeof(chordsWiki.chordsData) === "undefined") {
 
 		this.getSelectedNotes = function() {
 			var options = notesList.find('input');
-			var selectedOptions = $.grep(options, function( option, i ) {
-				return ( option.checked === true );
-			});
-			return selectedOptions;
+			var notes = [];
+			for (var i = 0; i < options.length; i++) {
+				if(options[i].checked === true){
+					notes.push(options[i].value);
+				}
+			}
+
+			return notes;
 		};
 
 		init();
