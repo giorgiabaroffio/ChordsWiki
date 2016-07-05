@@ -133,17 +133,27 @@
 
 		};
 
+		var getChordIndex = function(chord){
+			for (var i = 0; i < savedChords.length; i++) {
+				if(chord.chord === savedChords[i].chord && chord.category === savedChords[i].category){
+					return i;
+				}
+			}
+			return savedChords.length;
+		}
+
 		/**
 		 * Save the chord in the local storage
 		 * @params {chordsWiki.WikiManager.Chord} chord - the chord object
 		 * @params {String[]} notes - the id of the notes composing the chord
 		 */
 		var saveChord = function(chord, notes) {
-			savedChords.push({
+			var chordIndex = getChordIndex(chord);
+			savedChords[chordIndex] = {
 				chord : chord.chord,
 				category : chord.category,
 				notes : notes
-			});
+			};
 			localStorage.setItem('chords', JSON.stringify(savedChords));
 			console.log(localStorage);
 		};
