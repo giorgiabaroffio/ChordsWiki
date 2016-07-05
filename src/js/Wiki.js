@@ -96,6 +96,9 @@
 			selectObj.append(template(data));
 		};
 
+		/**
+		 * Handle the change event on the selection fields and notify the change to the WikiManager
+		 */
 		var handleOnSelectionChange = function() {
 			if (isSelectionValid()) {
 				try {

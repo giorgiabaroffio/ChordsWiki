@@ -33,12 +33,6 @@
 			}
 		};
 
-		var config = {
-
-		};
-
-		$.extend(config, params);
-
 		this.container = $('<div>');
 
 		/* jshint ignore:start */

@@ -1,7 +1,16 @@
+/**
+ * Note data type, composed of a unique identifier and a label
+ *
+ * @typedef {Object} chordsWiki.NotesPicker.Note
+ * @property {number} id - The id of the note
+ * @property {String} label - The label with the name of the note
+ */
+
 (function() {
 	'use strict';
 	/**
-	 * Constructor of the NotesPicker widget
+	 * Constructor of the NotesPicker widget, a UI with a list of notes that can be selected to compose a chord
+	 * @param {Object} params.dataSource - data with the list of chords types and categories
 	 * @constructor
 	 */
 	chordsWiki.NotesPicker = function(params) {
@@ -26,7 +35,7 @@
 		this.container = $('<div>');
 
 		var init = function() {
-			notesList = initializeNotesCheckboxList(notesList);
+			notesList = initializeNotesCheckboxList();
 			render();
 			populateNotesCheckboxList(config.dataSource.notes, notesList);
 		};
@@ -38,11 +47,19 @@
 			self.container.append(notesList);
 		};
 
-		var initializeNotesCheckboxList = function(notesList) {
+		/**
+		 * Initialize the list of notes creating the html list container
+		 */
+		var initializeNotesCheckboxList = function() {
 			notesList = $('<ul>');
 			return notesList;
 		};
 
+		/**
+		 * Populate the list of notes appending the options to the list
+		 * @param {chordsWiki.NotesPicker.Note[]} dataArray - the array of notes
+		 * @param {jQuery} list - the jQuery wrapper of the html list container
+		 */
 		var populateNotesCheckboxList = function(dataArray, list) {
 			for (var i = 0; i < dataArray.length; i++) {
 				var record = dataArray[i];
@@ -54,6 +71,10 @@
 			}
 		};
 
+		/**
+		 * Get the notes currently selected
+		 * @returns {String[]} notes - the list of ids of the selected notes
+		 */
 		this.getSelectedNotes = function() {
 			var options = notesList.find('input');
 			var notes = [];

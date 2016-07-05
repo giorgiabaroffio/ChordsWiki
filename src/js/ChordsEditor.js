@@ -2,6 +2,7 @@
 	'use strict';
 	/**
 	 * Constructor of the chords editor
+	 * @param {jQuery} params.rootElement - the jQuery container for the chords editor widget
 	 * @param {Object} params.dataSource - data with the list of chords types and categories
 	 * @constructor
 	 */
@@ -38,11 +39,17 @@
 		this.container = $('<div>');
 		var eastContainer = null;
 		var westContainer = null;
-
-		var wiki = null;
-		var notesPicker = null;
 		var submitButton = null;
 		var displayArea = null;
+
+		/**
+		 * @type {chordsWiki.Wiki}
+		 */
+		var wiki = null;
+		/**
+		 * @type {chordsWiki.NotesPicker}
+		 */
+		var notesPicker = null;
 
 		var savedChords = [];
 
@@ -65,7 +72,7 @@
 		};
 
 		/**
-		 * Instantiate and initialize the Wiki object.
+		 * Instantiate and initialize the NotesPicker object.
 		 */
 		var initNotesPicker = function() {
 			notesPicker = new chordsWiki.NotesPicker({
@@ -137,6 +144,11 @@
 			westContainer.append(displayArea);
 		};
 
+		/**
+		 * Get the index of the chord in the savedChords array, if not existing returns the end of the array as index
+		 * @param chord
+		 * @returns {number} the chord index
+		 */
 		var getChordIndex = function(chord){
 			for (var i = 0; i < savedChords.length; i++) {
 				if(chord.chord === savedChords[i].chord && chord.category === savedChords[i].category){
@@ -144,7 +156,7 @@
 				}
 			}
 			return savedChords.length;
-		}
+		};
 
 		/**
 		 * Save the chord in the local storage
