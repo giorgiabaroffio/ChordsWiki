@@ -42,6 +42,7 @@
 		var wiki = null;
 		var notesPicker = null;
 		var submitButton = null;
+		var displayArea = null;
 
 		var savedChords = [];
 
@@ -131,6 +132,9 @@
 			submitButton.text(CONST.LABEL.SUBMIT_BUTTON);
 			eastContainer.append(submitButton);
 
+			//append display area
+			displayArea = $('<div>');
+			westContainer.append(displayArea);
 		};
 
 		var getChordIndex = function(chord){
@@ -155,7 +159,13 @@
 				notes : notes
 			};
 			localStorage.setItem('chords', JSON.stringify(savedChords));
-			console.log(localStorage);
+		};
+
+		/**
+		 * Display the saved chords
+		 */
+		var displaySavedChords = function() {
+			displayArea.text(JSON.stringify(savedChords));
 		};
 
 		/**
@@ -164,6 +174,7 @@
 		var handleClick = function() {
 			if(wiki.getSelectedChord()!== null){
 				saveChord(wiki.getSelectedChord(), notesPicker.getSelectedNotes());
+				displaySavedChords();
 			}
 			else{
 				alert(CONST.ERROR.MISSING_CHORD);
