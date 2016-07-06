@@ -25,7 +25,7 @@ describe('chordsWiki.Wiki', function() {
 	};
 
 	beforeEach(function() {
-
+		loadFixtures('selectsTemplate.htm');
 		wiki = new chordsWiki.Wiki({});
 
 		customRootElement = $('<div>');

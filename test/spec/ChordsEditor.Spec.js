@@ -14,7 +14,7 @@ describe('chordsWiki.WikiManager', function() {
 	};
 
 	beforeEach(function() {
-
+		loadFixtures('selectsTemplate.htm');
 		chordsEditor = new chordsWiki.ChordsEditor({});
 
 		customRootElement = $('<div>');

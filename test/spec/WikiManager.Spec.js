@@ -25,13 +25,14 @@ describe('chordsWiki.WikiManager', function() {
 	};
 
 	beforeEach(function() {
-
+		loadFixtures('selectsTemplate.htm');
 		wikiManager = new chordsWiki.WikiManager({});
 
 		customRootElement = $('<div>');
 
 		/* jshint ignore:start */
 		customSourceData = getJSONFixture('customData.json');
+
 		/* jshint ignore:end */
 
 		customInstrument = new chordsWiki.Keyboard();
