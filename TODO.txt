@@ -1,4 +1,5 @@
 TODO
+- json schema validation
 - instrument generic class
 - improve keyboard rendering
 - add instrument selection ? (later)
